@@ -1,0 +1,125 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dominó</title>
+<link rel="stylesheet" href="css/dice-1.0.min.css"/>
+<style>
+body{
+	min-width:1024px;
+}
+.card{
+	border:1px solid #000;
+	text-align:center;
+	display:block;
+	width:64px;
+	height:148px;
+	border:2px solid #000;
+	border-radius:10%;
+	padding:5px;
+	margin:0.2% auto;
+}
+.card.R90{
+	-ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+	line-height:64px;
+	margin:-4.5% auto;
+}
+.card.R180{
+	-ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+	/*line-height:64px;
+	margin:-4.5% auto;*/
+}
+
+
+.card .dice{
+	font-family:"Dice";
+	width:64px;
+	height:64px;
+	font-size:4em;
+}
+.card hr {
+	border-top: 4px double #000;
+	text-align: center;
+}
+#tabuleiro{
+	width:70%;
+	height:450px;
+	text-align:center;
+	border-right:2px solid #000;
+	border-bottom:2px solid #000;
+	overflow-y: scroll;
+	display:inline-block;
+}
+.stat{
+	height:450px;
+	width:29.5%;
+	display:inline-block;
+	float:right;
+}
+.stat h1{
+	text-align:center;
+}
+#hand{
+	display:inline-block;
+	width:70%;
+
+}
+#hand .card{
+	display:inline-block;
+	margin:0 0.1%;
+}
+
+#hand .card .dice.hand{
+	cursor:pointer;
+	border:1px solid #FFF;
+	border-radius:35%;
+}
+
+#hand .card .dice.hand.hoverPossible{
+	border-color:#0F0;
+}
+#hand .card .dice.hand.hoverImPossible{
+	border-color:#F00;
+}
+.rights{
+	border-top:2px solid #000;
+	border-left:2px solid #000;
+	width:29.8%;
+	height:162px;
+	display:inline-block;
+	float:right;
+}
+</style>
+<head>
+<body>
+	<div>
+		<div id="tabuleiro">
+			<!-- Cartas no Tabuleiro -->
+			<div class="card R90"><span class="dice dice-6 hand" value="6"></span><hr><span class="dice dice-6 hand" value="6"></span></div>
+		</div>
+		<div class="stat">
+			<h1>Estastiticas</h1>
+			<table>
+				<tr><td>Jogadores Online:</td><td id="gamers">0</td></tr>
+				<tr><td>Peças no Tabuleiro:</td><td id="tab">0</td></tr>
+				<tr><td>Status do Jogo:</td><td>Aguardando jogadores...</td></tr>
+			</table>
+		</div>
+	
+	</div>
+	<div>
+		<div id="hand">
+			<!--- Minhas Cartas -->
+		
+		</div>
+		<div class="rights">
+			
+		
+		<div>
+	<div>
+</body>
+<script src="js/Game.js"></script>
+</html>
