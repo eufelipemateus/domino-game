@@ -1,7 +1,7 @@
 {
   "name": "DominoGameFM32",
   "version": "1.0.0",
-  "description": "",
+  "description": "Domino is a game made in node websocket.",
   "main": "index.js",
   "engines": {
     "node": "6.2.0"
@@ -9,8 +9,8 @@
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Domino","Game","Websocket"],
+  "author": "Felipe Mateus",
   "license": "ISC",
   "dependencies": {
     "bufferutil": "3.0.0",

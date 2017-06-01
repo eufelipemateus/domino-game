@@ -26,14 +26,13 @@ ws.onmessage = function (event) {
 
 			var response = response.object;
 			
-			
 			var card  = newCard(response.value)
 			
 			if(isDouble(card))  card.classList.add("R90");
 			if(isInverted(card))  card.classList.add("R180");					
-				
 			
 			document.getElementById("tabuleiro").appendChild(card);
+			downTabScroll();
 			Ultimo= response.last;
 		 
 		 break;
@@ -44,7 +43,6 @@ ws.onmessage = function (event) {
 	 }
 	 
 };
-
 
 
 function newCard(nums,horizontal){
@@ -100,7 +98,6 @@ function changeUltimo(Card){
 	Ultimo = ultimo;
 }
 
-
 function OpenToken(){
 	Vez=true;
 	document.getElementById("pass").classList.add("active");
@@ -115,17 +112,17 @@ function CloseToken(){
 	Vez=false;
 	
 }
-
-
 function PassarVez(){
 	if(Vez){
 		ws.send(JSON.stringify({'subject':"pass"}));
 		CloseToken();
 	}
-	console.log("dfa");
 }
 
-
+function downTabScroll(){
+	var objDiv = document.getElementById("tabuleiro");
+	objDiv.scrollTop = objDiv.scrollHeight;
+}
 
 function createHand(Hand){
 	for(i=0;i<Hand.length;i++){
@@ -145,10 +142,10 @@ function createHand(Hand){
 					if(isInverted(clone))  clone.classList.add("R180");					
 					
 					document.getElementById("tabuleiro").appendChild(clone);
+					downTabScroll();
 					e.srcElement.parentElement.remove();
 					changeUltimo(clone);
-					
-					
+								
 					
 					ws.send(JSON.stringify({'subject':"gaming","object":{"value":clone.getAttribute("value"), "last":Ultimo}}));
 					CloseToken();
@@ -171,6 +168,3 @@ function createHand(Hand){
 		document.getElementById("hand").appendChild(card);
 	}
 }
-
-
-	

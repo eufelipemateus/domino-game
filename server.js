@@ -54,7 +54,6 @@ wss.on('connection', (ws) => {
 		}
     });
 	
-  
 	ws.on('close', (e) => { 
 		var index = Gamers.indexOf(ws); 
 		if (index > -1) {
@@ -62,7 +61,7 @@ wss.on('connection', (ws) => {
 		} 
 		console.log('Client disconnected');  
 	});
-  
+	
 	send(ws.cartas,"myHand",ws);
 	Gamers.push(ws)
 });
@@ -113,22 +112,12 @@ function emabaralhar(C){
 }
 
 setInterval(() => {
-	
 	var Statistica = {Tab:CartasUsadas.length,Gamers:Gamers.length};
 	broadcast(Statistica,'Statistica');
-	
-	
-	
-	
-	if(Gamers.length==4){
-		//broadcast(null,'Ready');
-		
+	if(Gamers.length==4){		
 		///Init the Game
 		if( (CartasEmMaos[27]!=null) && (CartasUsadas[27]==null) ){
 			send(null,"token",Gamers[CartasEmMaos[27]]);
-		}
-				
-		
-	}
-	
+		}	
+	}	
 }, 1000);
