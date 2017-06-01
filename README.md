@@ -1,4 +1,4 @@
-#Domino
+# NodeDomino
 
 NodeDomino Este é jogo de dominó online feito em node.js websocket.
 
