@@ -64,7 +64,10 @@ body{
 }
 #hand{
 	display:inline-block;
-	width:70%;
+	width:62.9%;
+	position:relative;
+	padding:5px;
+	vertical-align:middle;
 
 }
 #hand .card{
@@ -84,6 +87,43 @@ body{
 #hand .card .dice.hand.hoverImPossible{
 	border-color:#F00;
 }
+
+#hand #wait{
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:2;
+
+}
+#hand #wait.disabled{
+	display:none;
+}
+
+#pass{
+	width:64px;
+	height:148px;
+	border:1px solid #000;
+	display:inline-block;
+	border:2px solid #000;
+	border-radius:10%;
+	padding:5px;
+	margin:0 auto;
+	font-weight:bolder;
+}
+#pass.active:hover{
+	background:#6F6;
+	cursor:pointer;
+}
+
+#pass span{
+	text-align:center;
+	line-height:148px;
+	font-size:12px;
+	margin:0 auto;
+	display:block;
+
+}
+
 .rights{
 	border-top:2px solid #000;
 	border-left:2px solid #000;
@@ -92,20 +132,20 @@ body{
 	display:inline-block;
 	float:right;
 }
+
 </style>
 <head>
 <body>
 	<div>
 		<div id="tabuleiro">
 			<!-- Cartas no Tabuleiro -->
-			<div class="card R90"><span class="dice dice-6 hand" value="6"></span><hr><span class="dice dice-6 hand" value="6"></span></div>
 		</div>
 		<div class="stat">
 			<h1>Estastiticas</h1>
 			<table>
 				<tr><td>Jogadores Online:</td><td id="gamers">0</td></tr>
 				<tr><td>Peças no Tabuleiro:</td><td id="tab">0</td></tr>
-				<tr><td>Status do Jogo:</td><td>Aguardando jogadores...</td></tr>
+				<tr><td>Status do Jogo:</td><td id="status">Aguardando jogadores...</td></tr>
 			</table>
 		</div>
 	
@@ -113,7 +153,11 @@ body{
 	<div>
 		<div id="hand">
 			<!--- Minhas Cartas -->
+			<div id="wait"></div>
 		
+		</div>
+		<div id="pass" onclick="PassarVez()">
+			<span>Passar Vez</span>
 		</div>
 		<div class="rights">
 			

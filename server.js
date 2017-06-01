@@ -13,24 +13,70 @@ const wss = new SocketServer({ server });
  
  
 /*Aplication Variaveis**/ 
+var Cartas = daCartas();
+var CartasUsadas=[];
+var CartasEmMaos=[];
+var Gamers=[];
  
- var Cartas = daCartas();
- var CartasUsadas=Array();
- var CartasEmMaos=Array();
- 
- wss.on('connection', (ws) => {
-  console.log('Client connected');
+wss.on('connection', (ws) => {
+	console.log('Client connected');
   
-  ws.cartas = emabaralhar();
-   
-  send(ws.cartas,"myHand",ws);
-  ws.on('close', () => console.log('Client disconnected'));
+	ws.cartas = emabaralhar(Gamers.length);
+	
+	ws.on('message', function(message) {
+		
+		var response = JSON.parse(message);
+        switch(response.subject){
+			case 'gaming' :
+			
+				var index = Cartas.indexOf(response.object.value);
+				
+				CartasUsadas.push(index);
+				
+				if((CartasEmMaos[index]+1)<4){
+					send(null,"token",Gamers[CartasEmMaos[index]+1]);
+				}else{
+					send(null,"token",Gamers[0]);
+				}
+				
+				sendToAll(response.object,"Moviment",Gamers[CartasEmMaos[index]]);
+
+				CartasEmMaos[index]=null;
+			break;
+			case 'pass' :
+				var index = Gamers.indexOf(ws);
+				index++;
+				if(index>=4){index=0;}
+				
+				send(null,"token",Gamers[index]);
+			break;
+			
+		}
+    });
+	
+  
+	ws.on('close', (e) => { 
+		var index = Gamers.indexOf(ws); 
+		if (index > -1) {
+			Gamers.splice(index, 1);
+		} 
+		console.log('Client disconnected');  
+	});
+  
+	send(ws.cartas,"myHand",ws);
+	Gamers.push(ws)
 });
 
-
+function sendToAll(object,subject,socket){
+	Gamers.forEach((client) => {
+		if(socket!=client){
+			send(object,subject,client);
+		}
+	});	
+}
 
 function broadcast(object,subject){
-	wss.clients.forEach((client) => {
+	Gamers.forEach((client) => {
 		send(object,subject,client);
 	});
 }
@@ -52,25 +98,37 @@ function daCartas(){
 	return cartas;
 }
 
-function emabaralhar(){
+function emabaralhar(C){
 	var MinhaMao = Array();
 	for(index=0;index<7;index++){
 		do{
-			var randNumber = Math.floor((Math.random() * 27) + 0);
+			var randNumber = Math.floor((Math.random() * 28) + 0);
 		
-		}while(CartasEmMaos[randNumber]);
+		}while(CartasEmMaos[randNumber] != null);
 		
-		CartasEmMaos[randNumber]=true;
+		CartasEmMaos[randNumber]=C;
 		MinhaMao[index] = Cartas[randNumber];
 	}
 	return MinhaMao;
 }
 
-
-
 setInterval(() => {
 	
-	var Statistica = {Tab:0,Gamers:0};
+	var Statistica = {Tab:CartasUsadas.length,Gamers:Gamers.length};
 	broadcast(Statistica,'Statistica');
 	
-}, 10000);
+	
+	
+	
+	if(Gamers.length==4){
+		//broadcast(null,'Ready');
+		
+		///Init the Game
+		if( (CartasEmMaos[27]!=null) && (CartasUsadas[27]==null) ){
+			send(null,"token",Gamers[CartasEmMaos[27]]);
+		}
+				
+		
+	}
+	
+}, 1000);

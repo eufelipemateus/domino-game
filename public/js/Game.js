@@ -1,5 +1,6 @@
 
-var Ultimo = 6;
+var Ultimo = null;
+var Vez = false;
 
 
 var HOST = location.origin.replace(/^http/, 'ws')
@@ -17,15 +18,43 @@ ws.onmessage = function (event) {
 			document.getElementById("gamers").innerHTML = response.object.Gamers;
 			document.getElementById("tab").innerHTML = response.object.Tab;
 		 break;
+		 case 'token' :
+			OpenToken();
+		 break;
+		 case 'Moviment' :
+		 	document.getElementById("status").innerHTML = "Aguardando Vez...";
+
+			var response = response.object;
+			
+			
+			var card  = newCard(response.value)
+			
+			if(isDouble(card))  card.classList.add("R90");
+			if(isInverted(card))  card.classList.add("R180");					
+				
+			
+			document.getElementById("tabuleiro").appendChild(card);
+			Ultimo= response.last;
+		 
+		 break;
+		 default :
+			console.log(response.object);
+		 break;
 		 
 	 }
 	 
 };
 
 
-function newCard(n1,n2,horizontal){
+
+function newCard(nums,horizontal){
+	var n1 = nums.split("|")[0];
+	var n2 = nums.split("|")[1];
+	
+	
 	var dcard = document.createElement("div");
 		dcard.classList.add("card");
+		dcard.setAttribute("value",nums);
 		if(horizontal) dcard.classList.add("R90");
 		
 		var span = document.createElement("span");
@@ -48,41 +77,68 @@ function newCard(n1,n2,horizontal){
 }
 
 function isDouble(Card){
-	var dices = Card.querySelectorAll(".dice");
-	if(dices[0].getAttribute("value")==dices[1].getAttribute("value")){  return true }else{ return false};
+	var nums = Card.getAttribute("value").split("|");
+	if(nums[0]==nums[1]){  return true }else{ return false};
 }
 function isInverted(Card){
-	var dices = Card.querySelectorAll(".dice");
-	if(dices[1].getAttribute("value")==Ultimo){  return true }else{ return false};
+	var nums = Card.getAttribute("value").split("|");
+	if(nums[1]==Ultimo && (nums[1] != nums[0])){  return true }else{ return false};
 }
+
+function isAllowed(Dice){
+	if((Dice.getAttribute("value")==Ultimo) || (Dice.parentElement.getAttribute("value")=="6|6")){return true ;} else{ return false;}
+}
+
 function changeUltimo(Card){
 	var dices = Card.querySelectorAll(".dice");
 	var ultimo = Ultimo;
 	dices.forEach(function(dice){
 		if(parseInt(dice.getAttribute("value"))!=ultimo && parseInt(dice.getAttribute("value"))!= Ultimo ){
-			ultimo= parseInt(dice.getAttribute("value"));	
-			console.log(Ultimo);			
-			console.log(Ultimo);			
+			ultimo= parseInt(dice.getAttribute("value"));				
 		}
 	});
-	
 	Ultimo = ultimo;
-	console.log(Ultimo);
 }
+
+
+function OpenToken(){
+	Vez=true;
+	document.getElementById("pass").classList.add("active");
+	document.getElementById("wait").classList.add("disabled");
+	document.getElementById("status").innerHTML = "Minha Vez!";	
+}
+
+function CloseToken(){
+	document.getElementById("pass").classList.remove("active");
+	document.getElementById("wait").classList.remove("disabled");
+	document.getElementById("status").innerHTML = "Aguardando Vez...";
+	Vez=false;
+	
+}
+
+
+function PassarVez(){
+	if(Vez){
+		ws.send(JSON.stringify({'subject':"pass"}));
+		CloseToken();
+	}
+	console.log("dfa");
+}
+
 
 
 function createHand(Hand){
 	for(i=0;i<Hand.length;i++){
-		var nums =  Hand[i].split("|");
+		var nums =  Hand[i];
 		 
-		var card = newCard(nums[0],nums[1],false);
+		var card = newCard(nums,false);
 		var dices = card.querySelectorAll(".dice");
 		dices.forEach(function(dice){
 				dice.classList.add("hand");
 				dice.addEventListener("click", function(e){
 					//Aqui entra Função Pra selecionar Peça no tabuleiro
 								
-					if(e.srcElement.getAttribute("value")!=Ultimo) return false;
+					if(!isAllowed(e.srcElement)) return false;
 					var clone = e.srcElement.parentElement.cloneNode(true); 
 					
 					if(isDouble(clone))  clone.classList.add("R90");
@@ -92,10 +148,15 @@ function createHand(Hand){
 					e.srcElement.parentElement.remove();
 					changeUltimo(clone);
 					
+					
+					
+					ws.send(JSON.stringify({'subject':"gaming","object":{"value":clone.getAttribute("value"), "last":Ultimo}}));
+					CloseToken();
+					
 				});
 				
 				dice.addEventListener("mouseover", function(e){
-					if(e.srcElement.getAttribute("value")==Ultimo){
+					if(isAllowed(e.srcElement)){
 						e.srcElement.classList.add("hoverPossible");
 					}else{
 						e.srcElement.classList.add("hoverImPossible");					
