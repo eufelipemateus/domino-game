@@ -54,7 +54,6 @@ function newCard(nums,horizontal){
 	var n1 = nums.split("|")[0];
 	var n2 = nums.split("|")[1];
 	
-	
 	var dcard = document.createElement("div");
 		dcard.classList.add("card");
 		dcard.setAttribute("value",nums);
@@ -148,8 +147,7 @@ function createHand(Hand){
 					downTabScroll();
 					e.srcElement.parentElement.remove();
 					changeUltimo(clone);
-								
-					
+												
 					ws.send(JSON.stringify({'subject':"gaming","object":{"value":clone.getAttribute("value"), "last":Ultimo}}));
 					CloseToken();
 				});

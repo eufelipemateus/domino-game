@@ -1,6 +1,6 @@
 # NodeDomino
 
-NodeDomino  é jogo de dominó online feito em html5 e node.js  com websocket.
+NodeDomino  é jogo de dominó online feito em html5,node.js e websocket.
 
 
 ## Getting Started
