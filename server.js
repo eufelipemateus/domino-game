@@ -4,10 +4,10 @@ const SocketServer = require('ws').Server;
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
+const INDEX = path.join(__dirname, 'public');
 
 const server = express()
-  .use(express.static(path.join(__dirname, 'public')))
+  .use(express.static(INDEX))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 const wss = new SocketServer({ server });
  
@@ -23,7 +23,6 @@ wss.on('connection', (ws) => {
   
 	ws.cartas = emabaralhar(Gamers.length);
 	
-
 	ws.on('message', function(message) {
 		var response = JSON.parse(message);
         switch(response.subject){
@@ -39,7 +38,6 @@ wss.on('connection', (ws) => {
 				}
 				
 				sendToAll(response.object,"Moviment",Gamers[CartasEmMaos[index]]);
-
 				
 				mIndex = ws.cartas.indexOf(response.object.value);
 				if (index > -1) {
@@ -66,7 +64,7 @@ wss.on('connection', (ws) => {
 			Gamers.splice(index, 1);
 		} 
 		console.log('Client disconnected');  
-		Reiniciar("Jogador"+(index+1)+" Desconectado! Reiniciando jogo...");
+		Reiniciar("Jogador"+(index+1)+" Desconectado! Reiniciando o jogo...");
 	});
 	
 	send(ws.cartas,"myHand",ws);
@@ -131,10 +129,7 @@ function Reiniciar(msg){
 		send(msg,"reboot",client);
 		send(client.cartas,"myHand",client);
 		send(JogadorNum,"gamer_num",client);
-		
 	});	
-	
-	
 }
 
 setInterval(() => {

@@ -41,10 +41,8 @@ ws.onmessage = function (event) {
 			document.getElementById("gamer_num").innerHTML = response.object;
 			Jogador=response.object;
 		break;
-		case 'reboot' :
-			var data = response.object;
-		 
-			alert(data);
+		case 'reboot' :	 
+			alert(response.object);
 			Reiniciar();
 		break;
 		default :
@@ -89,11 +87,9 @@ function isInverted(Card){
 	var nums = Card.getAttribute("value").split("|");
 	if(nums[1]==Ultimo && (nums[1] != nums[0])){  return true }else{ return false};
 }
-
 function isAllowed(Dice){
 	if((Dice.getAttribute("value")==Ultimo) || (Dice.parentElement.getAttribute("value")=="6|6")){return true ;} else{ return false;}
 }
-
 function changeUltimo(Card){
 	var dices = Card.querySelectorAll(".dice");
 	var ultimo = Ultimo;
