@@ -20,4 +20,4 @@ npm start
 
 
 
-Veja Mais em [Aqui](http://blog.felipefm32.com/2017/06/domino.html).
+Veja Mais [Aqui](http://blog.felipefm32.com/2017/06/domino.html).

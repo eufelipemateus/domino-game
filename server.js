@@ -47,7 +47,7 @@ wss.on('connection', (ws) => {
 				}
 				
 				if(ws.cartas.length == 0){
-					broadcast((CartasEmMaos[index]+1),"win");
+					Reiniciar("O Jogador"+(CartasEmMaos[index]+1)+" Venceu!");
 				}
 				CartasEmMaos[index]=null;
 			break;
@@ -66,6 +66,7 @@ wss.on('connection', (ws) => {
 			Gamers.splice(index, 1);
 		} 
 		console.log('Client disconnected');  
+		Reiniciar("Jogador"+(index+1)+" Desconectado! Reiniciando jogo...");
 	});
 	
 	send(ws.cartas,"myHand",ws);
@@ -116,6 +117,24 @@ function emabaralhar(C){
 		MinhaMao[index] = Cartas[randNumber];
 	}
 	return MinhaMao;
+}
+
+function Reiniciar(msg){
+	Cartas = daCartas();
+	CartasUsadas=[];
+	CartasEmMaos=[];
+
+	Gamers.forEach((client) => {
+		var JogadorNum = (Gamers.indexOf(client)+1);
+		client.cartas = 	emabaralhar(Gamers.indexOf(client));
+			
+		send(msg,"reboot",client);
+		send(client.cartas,"myHand",client);
+		send(JogadorNum,"gamer_num",client);
+		
+	});	
+	
+	
 }
 
 setInterval(() => {

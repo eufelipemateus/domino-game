@@ -13,18 +13,18 @@ ws.onmessage = function (event) {
 	 switch(response.subject){
 		case 'myHand' :
 			createHand(response.object);
-		 break;
-		 case 'Statistica':
+		break;
+		case 'Statistica':
 			document.getElementById("gamers").innerHTML = response.object.Gamers;
 			document.getElementById("tab").innerHTML = response.object.Tab;
-		 break;
-		 case 'token' :
+		break;
+		case 'token' :
 			if(response.object==Jogador){
 				OpenToken();
 			}
 			document.getElementById("Tokenjogador_"+response.object).checked =true;
-		 break;
-		 case 'Moviment' :
+		break;
+		case 'Moviment' :
 
 			var response = response.object;
 			
@@ -36,17 +36,20 @@ ws.onmessage = function (event) {
 			document.getElementById("tabuleiro").appendChild(card);
 			downTabScroll();
 			Ultimo= response.last;
-		 break;
-		 case 'gamer_num':
+		break;
+		case 'gamer_num':
 			document.getElementById("gamer_num").innerHTML = response.object;
 			Jogador=response.object;
-		 break;
-		 case 'win' :
-			alert("O Jogador "+response.object+" Venceu!")
-		 break;
-		 default :
+		break;
+		case 'reboot' :
+			var data = response.object;
+		 
+			alert(data);
+			Reiniciar();
+		break;
+		default :
 			console.log(response.object);
-		 break; 
+		break; 
 	 }
 };
 
@@ -167,4 +170,13 @@ function createHand(Hand){
 		});
 		document.getElementById("hand").appendChild(card);
 	}
+}
+
+function Reiniciar(){
+	document.getElementById("tabuleiro").innerHTML = "";
+	var cards = document.querySelectorAll("#hand > div:not(#wait) ");
+	cards.forEach( function(card){
+		card.parentNode.removeChild( card );
+	});
+	CloseToken();
 }
