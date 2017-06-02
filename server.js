@@ -47,7 +47,7 @@ wss.on('connection', (ws) => {
 				}
 				
 				if(ws.cartas.length == 0){
-					broadcast(CartasEmMaos[index],"win");
+					broadcast((CartasEmMaos[index]+1),"win");
 				}
 				CartasEmMaos[index]=null;
 			break;
@@ -126,7 +126,5 @@ setInterval(() => {
 		if( (CartasEmMaos[27]!=null) && (CartasUsadas[27]==null) ){
 			broadcast((CartasEmMaos[27]+1),"token",Gamers[CartasEmMaos[27]]);
 		}	
-		
-		
 	}
 }, 1000);

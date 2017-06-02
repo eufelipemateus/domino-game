@@ -42,16 +42,13 @@ ws.onmessage = function (event) {
 			Jogador=response.object;
 		 break;
 		 case 'win' :
-			alert("O Jogador "+response.object+"Venceu!")
+			alert("O Jogador "+response.object+" Venceu!")
 		 break;
 		 default :
 			console.log(response.object);
-		 break;
-		 
+		 break; 
 	 }
-	 
 };
-
 
 function newCard(nums,horizontal){
 	var n1 = nums.split("|")[0];
