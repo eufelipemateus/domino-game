@@ -19,6 +19,10 @@ ws.onmessage = function (event) {
 			document.getElementById("tab").innerHTML = response.object.Tab;
 		break;
 		case 'token' :
+<<<<<<< HEAD
+			CloseToken();	
+=======
+>>>>>>> 0742a833ed1551189557f3be6a3d11603f0e2621
 			if(response.object==Jogador){
 				OpenToken();
 			}
@@ -174,5 +178,9 @@ function Reiniciar(){
 	cards.forEach( function(card){
 		card.parentNode.removeChild( card );
 	});
+<<<<<<< HEAD
+	document.getElementById("status").innerHTML = "Aguardando jogadores...";
+=======
 	CloseToken();
+>>>>>>> 0742a833ed1551189557f3be6a3d11603f0e2621
 }

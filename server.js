@@ -20,7 +20,12 @@ var Gamers=[];
  
 wss.on('connection', (ws) => {
 	console.log('Client connected');
+<<<<<<< HEAD
+	
+	
+=======
   
+>>>>>>> 0742a833ed1551189557f3be6a3d11603f0e2621
 	ws.cartas = emabaralhar(Gamers.length);
 	
 	ws.on('message', function(message) {
@@ -136,9 +141,17 @@ setInterval(() => {
 	var Statistica = {Tab:CartasUsadas.length,Gamers:Gamers.length};
 	broadcast(Statistica,'Statistica');
 	if(Gamers.length==4){		
+<<<<<<< HEAD
+		/*Init the Game*/
+		if( (CartasEmMaos[27]!=null) && (CartasUsadas[27]==null) ){
+			broadcast((CartasEmMaos[27]+1),"token");
+			//broadcast((CartasEmMaos[27]+1),"token",Gamers[CartasEmMaos[27]]);
+			//sendToAll(null,"ready",Gamers[CartasEmMaos[27]])
+=======
 		///Init the Game
 		if( (CartasEmMaos[27]!=null) && (CartasUsadas[27]==null) ){
 			broadcast((CartasEmMaos[27]+1),"token",Gamers[CartasEmMaos[27]]);
+>>>>>>> 0742a833ed1551189557f3be6a3d11603f0e2621
 		}	
 	}
 }, 1000);
