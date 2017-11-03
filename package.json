@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
   "name": "domino-game",
   "version": "1.0.0",
-=======
-  "name": "DominoGameFM32",
-  "version": "1.3.0",
->>>>>>> 0742a833ed1551189557f3be6a3d11603f0e2621
   "description": "Domino is a game made in node websocket.",
   "main": "index.js",
   "engines": {
