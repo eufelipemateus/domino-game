@@ -1,21 +1,29 @@
 {
   "name": "domino-game",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Domino is a game made in node websocket.",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
     "node": "6.2.0"
   },
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": ["Domino","Game","Websocket"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipefm32/NodeDomino.git"
+  },
+  "keywords": ["Domino","Game","Websocket","Online","Express","HTML5"],
   "author": "Felipe Mateus",
-  "license": "ISC",
+  "license": "CC",
   "dependencies": {
     "bufferutil": "3.0.0",
     "express": "4.15.3",
     "utf-8-validate": "3.0.1",
     "ws": "3.0.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/felipefm32/NodeDomino/issues"
+  },
+  "homepage": "https://github.com/felipefm32/NodeDomino#readme"
 }
