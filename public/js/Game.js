@@ -14,6 +14,9 @@ ws.onmessage = function (event) {
 		case 'myHand' :
 			createHand(response.object);
 		break;
+		case "gamer_name":
+			document.getElementById("gamerName_"+response.object.gamer).innerHTML =response.object.value ;
+		break;
 		case 'Statistica':
 			document.getElementById("gamers").innerHTML = response.object.Gamers;
 			document.getElementById("tab").innerHTML = response.object.Tab;
@@ -50,7 +53,12 @@ ws.onmessage = function (event) {
 			console.log(response.object);
 		break; 
 	 }
-};
+}
+ws.onopen = function(){
+	var	 d = window.prompt("Digite seu nome:");
+	ws.send(JSON.stringify({'subject':"gamer_name","object":d}));
+
+}
 
 function newCard(nums,horizontal){
 	var n1 = nums.split("|")[0];

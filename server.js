@@ -27,6 +27,14 @@ wss.on('connection', (ws) => {
 	ws.on('message', function(message) {
 		var response = JSON.parse(message);
         switch(response.subject){
+			case 'gamer_name' :
+				ws.name = response.object;
+								
+				Gamers.forEach((client) => {
+					send({"gamer":(Gamers.indexOf(client)+1),"value":client.name},"gamer_name",ws)
+				});
+				sendToAll({"gamer":(Gamers.indexOf(ws)+1),"value":response.object},"gamer_name",ws)
+			break;
 			case 'gaming' :
 				var index = Cartas.indexOf(response.object.value);
 				
@@ -71,6 +79,7 @@ wss.on('connection', (ws) => {
 	send(ws.cartas,"myHand",ws);
 	Gamers.push(ws)
 	send(Gamers.length,"gamer_num",ws);
+	
 });
 
 function sendToAll(object,subject,socket){
