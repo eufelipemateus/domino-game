@@ -26,4 +26,4 @@ Veja Mais [Aqui](http://blog.felipefm32.com/2017/06/domino.html).
 
 * **[Felipe Mateus](https://felipefm32.com)** - [Felipefm32](https://github.com/felipefm32)
 
-### [Live](http://blog.felipefm32.com/2017/06/domino.html)
+### [Live](http://domino-felipefm32.herokuapp.com)
