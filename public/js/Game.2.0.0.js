@@ -1,84 +1,27 @@
-
-var Ultimo = null;
-var Vez = false;
-var Jogador = null;
-
-var HOST = location.origin.replace(/^http/, 'ws')
-var ws = new WebSocket(HOST);
-var el = document.getElementById('tabuleiro');
-
-ws.onmessage = function (event) {
-     var response = JSON.parse(event.data);
-	 
-	 switch(response.subject){
-		case 'myHand' :
-			createHand(response.object);
-		break;
-		case "gamer_name":
-			document.getElementById("gamerName_"+response.object.gamer).innerHTML =response.object.value ;
-		break;
-		case 'Statistica':
-			document.getElementById("gamers").innerHTML = response.object.Gamers;
-			document.getElementById("tab").innerHTML = response.object.Tab;
-		break;
-		case 'token' :
-			CloseToken();	
-			if(response.object==Jogador){
-				OpenToken();
-			}
-			document.getElementById("Tokenjogador_"+response.object).checked =true;
-		break;
-		case 'Moviment' :
-
-			var response = response.object;
-			
-			var card  = newCard(response.value)
-			
-			if(isDouble(card))  card.classList.add("R90");
-			if(isInverted(card))  card.classList.add("R180");					
-			
-			document.getElementById("tabuleiro").appendChild(card);
-			downTabScroll();
-			Ultimo= response.last;
-		break;
-		case 'gamer_num':
-			document.getElementById("gamer_num").innerHTML = response.object;
-			Jogador=response.object;
-		break;
-		case 'reboot' :	 
-			alert(response.object);
-			Reiniciar();
-		break;
-		default :
-			console.log(response.object);
-		break; 
-	 }
-}
-ws.onopen = function(){
-	var	 d = window.prompt("Digite seu nome:");
-	ws.send(JSON.stringify({'subject':"gamer_name","object":d}));
-}
+var Ultimo;
+var Jogador;
 
 function newCard(nums,horizontal){
-	var n1 = nums.split("|")[0];
-	var n2 = nums.split("|")[1];
+	let n1 = nums[0];
+	let n2 = nums[1];
 	
-	var dcard = document.createElement("div");
+	
+	let dcard = document.createElement("div");
 		dcard.classList.add("card");
 		dcard.setAttribute("value",nums);
 		if(horizontal) dcard.classList.add("R90");
 		
-		var span = document.createElement("span");
+		let span = document.createElement("span");
 			span.classList.add("dice");
 			span.classList.add("dice-"+n1);
 			span.setAttribute("value",n1);
 			
 		dcard.appendChild(span);
 		
-		var hr = document.createElement("hr");
+		let hr = document.createElement("hr");
 		dcard.appendChild(hr);
 		
-		var span = document.createElement("span");
+			span = document.createElement("span");
 			span.classList.add("dice");
 			span.classList.add("dice-"+n2);
 			span.setAttribute("value",n2);
@@ -88,19 +31,19 @@ function newCard(nums,horizontal){
 }
 
 function isDouble(Card){
-	var nums = Card.getAttribute("value").split("|");
+	let nums = Card.getAttribute("value").split("|");
 	if(nums[0]==nums[1]){  return true }else{ return false};
 }
 function isInverted(Card){
-	var nums = Card.getAttribute("value").split("|");
+	let nums = Card.getAttribute("value").split("|");
 	if(nums[1]==Ultimo && (nums[1] != nums[0])){  return true }else{ return false};
 }
 function isAllowed(Dice){
 	if((Dice.getAttribute("value")==Ultimo) || (Dice.parentElement.getAttribute("value")=="6|6")){return true ;} else{ return false;}
 }
 function changeUltimo(Card){
-	var dices = Card.querySelectorAll(".dice");
-	var ultimo = Ultimo;
+	let dices = Card.querySelectorAll(".dice");
+	let ultimo = Ultimo;
 	dices.forEach(function(dice){
 		if(parseInt(dice.getAttribute("value"))!=ultimo && parseInt(dice.getAttribute("value"))!= Ultimo ){
 			ultimo= parseInt(dice.getAttribute("value"));				
@@ -129,23 +72,24 @@ function PassarVez(){
 	}
 }
 function downTabScroll(){
-	var objDiv = document.getElementById("tabuleiro");
+	let objDiv = document.getElementById("tabuleiro");
 	objDiv.scrollTop = objDiv.scrollHeight;
 }
 
+
 function createHand(Hand){
 	for(i=0;i<Hand.length;i++){
-		var nums =  Hand[i];
-		 
-		var card = newCard(nums,false);
-		var dices = card.querySelectorAll(".dice");
+		let nums =  Hand[i];
+		
+		let card = newCard(nums,false);
+		let dices = card.querySelectorAll(".dice");
 		dices.forEach(function(dice){
 				dice.classList.add("hand");
 				dice.addEventListener("click", function(e){
-					//Aqui entra Função Pra selecionar Peça no tabuleiro
+					//Aqui entra FunÃ§Ã£o Pra selecionar PeÃ§a no tabuleiro
 								
 					if(!isAllowed(e.srcElement)) return false;
-					var clone = e.srcElement.parentElement.cloneNode(true); 
+					let clone = e.srcElement.parentElement.cloneNode(true); 
 					
 					if(isDouble(clone))  clone.classList.add("R90");
 					if(isInverted(clone))  clone.classList.add("R180");					
@@ -154,8 +98,8 @@ function createHand(Hand){
 					downTabScroll();
 					e.srcElement.parentElement.remove();
 					changeUltimo(clone);
-												
-					ws.send(JSON.stringify({'subject':"gaming","object":{"value":clone.getAttribute("value"), "last":Ultimo}}));
+					
+					socket.emit("gaming",{value:nums, last:Ultimo});
 					CloseToken();
 				});
 				
@@ -175,12 +119,35 @@ function createHand(Hand){
 		document.getElementById("hand").appendChild(card);
 	}
 }
+/*** Listen connections  ***/
+function listen(){
+	socket.on('connect', () =>  {
+		console.info("conctado");
+		
+		socket.emit("NEW CONNECTION",window.prompt("Digite seu nome:"));
 
-function Reiniciar(){
-	document.getElementById("tabuleiro").innerHTML = "";
-	var cards = document.querySelectorAll("#hand > div:not(#wait) ");
-	cards.forEach( function(card){
-		card.parentNode.removeChild( card );
 	});
-	document.getElementById("status").innerHTML = "Aguardando jogadores...";
+
+	socket.on('HAND', function (msg) {
+		createHand(msg);		
+	});
+	
+	socket.on('GAMER NAME', function (msg) {
+		document.getElementById("gamerName_"+msg.gamer).innerHTML =msg.name ;
+		Jogador=msg.gamer;
+	});
+	
+	socket.on('MOVIMENT', function (msg) {
+		
+			
+			var card  = newCard(response.value)
+			
+			if(isDouble(card))  card.classList.add("R90");
+			if(isInverted(card))  card.classList.add("R180");					
+			
+			document.getElementById("tabuleiro").appendChild(card);
+			downTabScroll();
+			Ultimo= response.last;
+	});
+	
 }

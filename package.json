@@ -1,29 +1,45 @@
 {
-  "name": "domino-game",
-  "version": "1.0.3",
-  "description": "Domino is a game made in node websocket.",
-  "main": "server.js",
-  "engines": {
-    "node": "6.2.0"
-  },
-  "scripts": {
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/felipefm32/NodeDomino.git"
-  },
-  "keywords": ["Domino","Game","Websocket","Online","Express","HTML5"],
-  "author": "Felipe Mateus",
-  "license": "CC",
-  "dependencies": {
-    "bufferutil": "3.0.0",
-    "express": "4.15.3",
-    "utf-8-validate": "3.0.1",
-    "ws": "3.0.0"
-  },
-  "bugs": {
-    "url": "https://github.com/felipefm32/NodeDomino/issues"
-  },
-  "homepage": "https://github.com/felipefm32/NodeDomino#readme"
+	"name": "domino-game",
+	"version": "1.0.3",
+	"description": "Domino is a game made in node websocket.",
+	"main": "server.js",
+	"engines": {
+		"node": "6.2.0"
+	},
+	"scripts": {
+		"compile": "tsc",
+		"start": "node dist/server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/felipefm32/NodeDomino.git"
+	},
+	"keywords": [
+		"Domino",
+		"Game",
+		"Websocket",
+		"Online",
+		"Express",
+		"HTML5"
+	],
+	"author": {
+		"name": "Felipe Mateus",
+		"email": "contato@felipefm32.com.br",
+		"url": "http://felipefm32.com/"
+	},
+	"license": "CC",
+	"dependencies": {
+		"@types/socket.io": "^2.1.2",
+		"express": "^4.16.4",
+		"express-session": "~1.15.1",
+		"socket.io": "^2.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "^7.0.5",
+		"typescript": "^3.1.6"
+	},
+	"bugs": {
+		"url": "https://github.com/felipefm32/NodeDomino/issues"
+	},
+	"homepage": "https://github.com/felipefm32/NodeDomino#readme"
 }
