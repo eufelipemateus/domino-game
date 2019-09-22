@@ -4,8 +4,6 @@ var Jogador;
 function newCard(nums,horizontal){
 	let n1 = nums[0];
 	let n2 = nums[1];
-	
-	
 	let dcard = document.createElement("div");
 		dcard.classList.add("card");
 		dcard.setAttribute("value",nums);
@@ -31,15 +29,15 @@ function newCard(nums,horizontal){
 }
 
 function isDouble(Card){
-	let nums = Card.getAttribute("value").split("|");
+	let nums = Card.getAttribute("value").split(",");
 	if(nums[0]==nums[1]){  return true }else{ return false};
 }
 function isInverted(Card){
-	let nums = Card.getAttribute("value").split("|");
+	let nums = Card.getAttribute("value").split(",");
 	if(nums[1]==Ultimo && (nums[1] != nums[0])){  return true }else{ return false};
 }
 function isAllowed(Dice){
-	if((Dice.getAttribute("value")==Ultimo) || (Dice.parentElement.getAttribute("value")=="6|6")){return true ;} else{ return false;}
+	if((Dice.getAttribute("value")==Ultimo) || (Dice.parentElement.getAttribute("value")=="6,6")){return true ;} else{ return false;}
 }
 function changeUltimo(Card){
 	let dices = Card.querySelectorAll(".dice");
@@ -53,7 +51,6 @@ function changeUltimo(Card){
 }
 
 function OpenToken(){
-	Vez=true;
 	document.getElementById("pass").classList.add("active");
 	document.getElementById("wait").classList.add("disabled");
 	document.getElementById("status").innerHTML = "Minha Vez!";
@@ -63,19 +60,15 @@ function CloseToken(){
 	document.getElementById("pass").classList.remove("active");
 	document.getElementById("wait").classList.remove("disabled");
 	document.getElementById("status").innerHTML = "Aguardando Vez...";
-	Vez=false;
 }
 function PassarVez(){
-	if(Vez){
-		ws.send(JSON.stringify({'subject':"pass"}));
-		CloseToken();
-	}
+	socket.emit("PASS");
+	CloseToken();
 }
 function downTabScroll(){
 	let objDiv = document.getElementById("tabuleiro");
 	objDiv.scrollTop = objDiv.scrollHeight;
 }
-
 
 function createHand(Hand){
 	for(i=0;i<Hand.length;i++){
@@ -110,7 +103,7 @@ function createHand(Hand){
 						e.srcElement.classList.add("hoverImPossible");					
 					}			
 				});
-				
+
 				dice.addEventListener("mouseout", function(e){
 					e.srcElement.classList.remove("hoverPossible");
 					e.srcElement.classList.remove("hoverImPossible")
@@ -119,35 +112,53 @@ function createHand(Hand){
 		document.getElementById("hand").appendChild(card);
 	}
 }
+
+function Reiniciar(){
+	document.getElementById("tabuleiro").innerHTML = "";
+	var cards = document.querySelectorAll("#hand > div:not(#wait) ");
+	cards.forEach( function(card){
+		card.parentNode.removeChild( card );
+	});
+	document.getElementById("status").innerHTML = "Aguardando jogadores...";
+}
+
 /*** Listen connections  ***/
 function listen(){
 	socket.on('connect', () =>  {
 		console.info("conctado");
-		
 		socket.emit("NEW CONNECTION",window.prompt("Digite seu nome:"));
 
 	});
-
 	socket.on('HAND', function (msg) {
+		Reiniciar()
 		createHand(msg);		
 	});
-	
 	socket.on('GAMER NAME', function (msg) {
 		document.getElementById("gamerName_"+msg.gamer).innerHTML =msg.name ;
+		document.getElementById("gamer_num").innerHTML = (msg.gamer+1);
 		Jogador=msg.gamer;
 	});
-	
 	socket.on('MOVIMENT', function (msg) {
+		var card  = newCard(msg.value);		
+		if(isDouble(card))  card.classList.add("R90");
+		if(isInverted(card))  card.classList.add("R180");					
 		
-			
-			var card  = newCard(response.value)
-			
-			if(isDouble(card))  card.classList.add("R90");
-			if(isInverted(card))  card.classList.add("R180");					
-			
-			document.getElementById("tabuleiro").appendChild(card);
-			downTabScroll();
-			Ultimo= response.last;
+		document.getElementById("tabuleiro").appendChild(card);
+		downTabScroll();
+		Ultimo= msg.last;
+	});	
+	socket.on('TOKEN', function (token) {
+		CloseToken();	
+		if(token==Jogador){
+			OpenToken();
+		}
+		document.getElementById("Tokenjogador_"+token).checked =true;		
 	});
-	
+	socket.on('REBOOT', function (msg) {
+		Reiniciar();		
+	});
+	socket.on('INFO',(msg)=>{
+		document.getElementById("gamers").innerHTML = msg.Gamers;
+		document.getElementById("tab").innerHTML = msg.Tab;
+	});
 }

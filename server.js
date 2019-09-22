@@ -19,7 +19,7 @@ var CartasEmMaos=[];
 var Gamers=[];
  
 wss.on('connection', (ws) => {
-	console.log('Client connected');
+	console.log('Client connected!');
 	
 	
 	ws.cartas = emabaralhar(Gamers.length);

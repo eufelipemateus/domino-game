@@ -9,7 +9,6 @@ class Domino{
 	constructor(){
 		this.daCartas();
 	}
-	
 	private  daCartas(){
 		let index=0;
 		for(let i=0;i<7;i++){
@@ -18,7 +17,6 @@ class Domino{
 			}
 		}
 	}
-	
 	public  emabaralhar(){
 		let MinhaMao = Array(),rand,index;
 		for(index=0;index<7;index++){
@@ -31,17 +29,14 @@ class Domino{
 		}
 		return MinhaMao;
 	}
-	
 	public  primeiraJogada(card){
-		if(card.indexOf(this.Cartas[28]))
+		if(card.indexOf(this.Cartas[27]) > -1)
 			return true;
 		else
 			return false;
 	}
-	
 	public indexOfGamers (socket){
 	  return this.Gamers.indexOf(socket);
 	}
-	
 }
 export default new Domino();
