@@ -7,8 +7,14 @@
 		"node": "6.2.0"
 	},
 	"scripts": {
-		"compile": "tsc",
-		"start": "node dist/server.js"
+		"ts:watch": "tsc -w",
+		"ts:build": "tsc",
+		"serve": "nodemon build/server.js",
+		"watch": "concurrently \"npm run ts:watch\" \"npm run serve\"",
+		"build": "npm run ts:build && tsc public/js/Game.ts --out public/js/Game.js ",
+		"prod:serve": "node build/server.js",
+		"start": "npm run build && npm run prod:serve",
+		"tslint": "tslint -c tslint.json -p tsconfig.json"
 	},
 	"repository": {
 		"type": "git",
@@ -25,18 +31,23 @@
 	"author": {
 		"name": "Felipe Mateus",
 		"email": "contato@felipefm32.com.br",
-		"url": "http://felipefm32.com/"
+		"url": "https://felipefm32.com/"
 	},
 	"license": "CC",
 	"dependencies": {
 		"@types/socket.io": "^2.1.2",
 		"express": "^4.16.4",
 		"express-session": "~1.15.1",
-		"socket.io": "^2.2.0"
+		"socket.io": "^2.2.0",
+		"socket.io-client": "^2.3.0"
 	},
 	"devDependencies": {
 		"@types/node": "^7.0.5",
-		"typescript": "^3.1.6"
+		"concurrently": "^3.5.0",
+		"copyfiles": "^2.1.1",
+		"nodemon": "^1.11.0",
+		"typescript": "^3.1.6",
+		"uglify-js": "^3.6.0"
 	},
 	"bugs": {
 		"url": "https://github.com/felipefm32/NodeDomino/issues"

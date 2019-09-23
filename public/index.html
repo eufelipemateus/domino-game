@@ -182,7 +182,8 @@ body{
 			<h1>Estastiticas</h1>
 			<table>
 				<tr><td>Jogadores Online:</td><td id="gamers">0</td></tr>
-				<tr><td>Peças no Tabuleiro:</td><td id="tab">0</td></tr>
+				<tr><td>Cartas no Tabuleiro:</td><td id="tab">0</td></tr>
+				<tr><td>Cartas em Mãos:</td><td id="cards_in_hand">0</td></tr>
 				<tr><td>Numero do Jogador:</td><td id="gamer_num">0</td></tr>
 				<tr><td>Status do Jogo:</td><td id="status">Aguardando jogadores...</td></tr>
 			</table>
@@ -200,7 +201,7 @@ body{
 			<!--- Minhas Cartas -->
 			<div id="wait"></div>
 		</div>
-		<div id="pass" onclick="PassarVez()">
+		<div id="pass" onclick="game.PassarVez()">
 			<span>Passar Vez</span>
 		</div>
 		<div class="rights">
@@ -214,9 +215,6 @@ body{
 	</div>
 </body>
 <script src="/socket.io/socket.io.js"></script>
-<script>
-  const socket = io();
-</script>
-<script src="js/Game.1.0.5.js"></script>
-<script>listen();</script>
+<script src="js/Game.js"></script>
+<script>const game = new Game(io);</script>
 </html>

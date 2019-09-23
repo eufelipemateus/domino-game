@@ -38,5 +38,35 @@ class Domino{
 	public indexOfGamers (socket){
 	  return this.Gamers.indexOf(socket);
 	}
+	
+	private indexOfGamerCards(gamer,card){
+		return gamer.cards.findIndex(function(element,index){
+			return  this.card === element;
+		},card)
+	}
+	
+	public removeGamerCard(gamer,card){
+		let mIndex = this.indexOfGamerCards(gamer,card)
+		if ( mIndex > -1) {
+			gamer.cards.splice(mIndex, 1);
+		}
+	}
+	
+	public isGamerWinner(gamer){
+		return (gamer.cards.length == 0);
+	}
+
+	private  indexOfHandCards(card){//not working
+		return this.CartasEmMaos.findIndex((element,index)=>{
+			return  card === element;
+		})		
+	}
+	
+	public removeCardInHand(gamer,card){//not working
+		let mIndex = this.indexOfHandCards(card);
+		if (mIndex > -1) {
+			gamer.CartasEmMaos.splice(mIndex, 1);
+		}
+	}
 }
 export default new Domino();

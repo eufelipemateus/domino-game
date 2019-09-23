@@ -1,9 +1,9 @@
-import app from "./app";
+import app from "./App";
 import { Server } from 'http';
 
 const port = process.env.PORT || app.PORT;
 
-app.debug = true; 
+app.debug = false; 
 
 app.server.listen(port, function () {
     console.info(`Server running in  ${port}...`);

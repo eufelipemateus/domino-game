@@ -45,65 +45,63 @@ class App {
 				domino.Gamers.forEach((s,index)=>{
 					socket.emit("GAMER NAME",{gamer:index,name:s.name  });
 				});
-
             });
 			
 			socket.on('gaming',(msg)=>{
 				
-				domino.Cartas.indexOf(msg.value);
+				socket.cards.splice(domino.Cartas.indexOf(msg.value), 1);
 				domino.CartasUsadas.push(msg.value);
-				domino.Ultimo = msg.ultimo;
+				domino.Ultimo = msg.last;
 				
+				if(this.debug)console.info('User play!',msg.value);
+
 				socket.token = false;
 				
 				if((domino.indexOfGamers(socket)+1)<4){
 					domino.Gamers[domino.indexOfGamers(socket)+1].token = true;
 				}else{
 					domino.Gamers[0].token = true;
-				}
-	
+				}				
+				
 				socket.broadcast.emit("MOVIMENT",msg)
-								
-				let mIndex = socket.cards.indexOf(msg.value);
-				if (mIndex > -1) {
-					socket.cards.splice(mIndex, 1);
-				}
+				domino.removeGamerCard(socket,msg.value);
 				
-				if(socket.cards.length == 0){
-					//Reiniciar("O Jogador"+(CartasEmMaos[index]+1)+" Venceu!");
+				if(domino.isGamerWinner(socket)){
+					this.reboot("O Jogador"+(domino.indexOfGamers(socket)+1)+" Venceu!");
+					if(this.debug)console.info('User Winner!');
 				}
-				
-				mIndex = domino.CartasEmMaos.indexOf(msg.value);
-				if (mIndex > -1) {
-					socket.CartasEmMaos.splice(mIndex, 1);
-				}
-					
+				domino.removeCardInHand(socket,msg.value);		
             });
 			
-			socket.on('PASS', function (msg) {
-				console.log(socket.token);
+			socket.on('PASS', (msg)=> {
 				if(socket.token){
 					socket.token = false;
 					if((domino.indexOfGamers(socket)+1)<4){
 						domino.Gamers[domino.indexOfGamers(socket)+1].token = true;
 					}else{
 						domino.Gamers[0].token = true;
-					}				
+					}
+				    if(this.debug)console.info('User Pass!');
+
 				}		
             });
 			
             socket.on('disconnect', () => {
-				domino.Gamers.splice(domino.Gamers.indexOf(socket), 1);
+				let gamer = domino.Gamers.indexOf(socket);
+				domino.Gamers.splice(gamer, 1);
                 if(this.debug)console.info('User disconnected!');
-				this.reboot();
+				this.reboot(`O Jogador ${(gamer)+1} desconectou! ` );
             });
         });
     }
 	private runtime(){
 		
 		setInterval(() => {
-			
-			this.io.emit("INFO", {Tab:domino.CartasUsadas.length,Gamers:domino.Gamers.length});
+			this.io.emit("INFO", {
+				Tab:domino.CartasUsadas.length,
+				Gamers:domino.Gamers.length,
+				CardsInHand:domino.CartasEmMaos.length
+			});
 
 			if(domino.Gamers.length==4){		
 				domino.Gamers.forEach((socket,index)=>{
@@ -113,17 +111,21 @@ class App {
 			}
 		}, 1000);
 	}
-	private reboot(){
+	private reboot(msg){
 		domino.CartasUsadas=Array();
 		domino.CartasEmMaos=Array();
 
 		domino.Gamers.forEach((client,index) => {
-			client.emit("REBOOT");
+			client.emit("REBOOT",msg);
 			let cards = domino.emabaralhar();
 			client.cards = cards ;
 			client.token = domino.primeiraJogada(cards);
 			client.emit("HAND",cards);	
-		});	
+			client.emit("GAMER NAME",{gamer:index,name:client.name  });
+
+		});
+		if(this.debug)console.info('Game Reboot!');
+
 	}
 }
 

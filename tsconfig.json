@@ -1,16 +1,17 @@
 {
-  "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-	"outDir": "build"
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "types": [
-    "node",
-  ]
+	"compilerOptions": {
+		"target": "es2016",
+		"module": "commonjs",
+		"sourceMap": false,
+		"outDir": "build"
+	},
+	"include": [
+		"src/**/*.ts",
+	],
+	"exclude": [
+		"node_modules",
+	],
+	"types": [
+		"node",
+	]
 }
