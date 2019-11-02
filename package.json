@@ -1,8 +1,8 @@
 {
 	"name": "domino-game",
-	"version": "1.0.3",
+	"version": "2.0.1",
 	"description": "Domino is a game made in node websocket.",
-	"main": "server.js",
+	"main": "build/server.js",
 	"engines": {
 		"node": "6.2.0"
 	},
@@ -26,7 +26,9 @@
 		"Websocket",
 		"Online",
 		"Express",
-		"HTML5"
+		"HTML5",
+		"Typescript",
+		"socket.io"
 	],
 	"author": {
 		"name": "Felipe Mateus",
@@ -38,16 +40,13 @@
 		"@types/socket.io": "^2.1.2",
 		"express": "^4.16.4",
 		"express-session": "~1.15.1",
-		"socket.io": "^2.2.0",
-		"socket.io-client": "^2.3.0"
+		"socket.io": "^2.2.0"
 	},
 	"devDependencies": {
 		"@types/node": "^7.0.5",
 		"concurrently": "^3.5.0",
-		"copyfiles": "^2.1.1",
 		"nodemon": "^1.11.0",
-		"typescript": "^3.1.6",
-		"uglify-js": "^3.6.0"
+		"typescript": "^3.1.6"
 	},
 	"bugs": {
 		"url": "https://github.com/felipefm32/NodeDomino/issues"

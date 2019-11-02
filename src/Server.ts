@@ -6,5 +6,5 @@ const port = process.env.PORT || app.PORT;
 app.debug = false; 
 
 app.server.listen(port, function () {
-    console.info(`Server running in  ${port}...`);
+    console.info(`Server running in  https://localhost:${port}...`);
 });
