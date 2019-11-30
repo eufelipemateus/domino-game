@@ -9,11 +9,11 @@
 	"scripts": {
 		"ts:watch": "tsc -w",
 		"ts:build": "tsc",
-		"serve": "nodemon build/server.js",
+		"serve": "nodemon ._build/Server.js",
 		"watch": "concurrently \"npm run ts:watch\" \"npm run serve\"",
 		"build": "npm run ts:build && tsc public/js/Game.ts --out public/js/Game.js ",
-		"prod:serve": "node build/server.js",
-		"start": "npm run build && npm run prod:serve",
+		"prod:serve": "node ._build/Server.js",
+		"start": "npm run prod:serve",
 		"tslint": "tslint -c tslint.json -p tsconfig.json"
 	},
 	"repository": {
@@ -33,7 +33,7 @@
 	"author": {
 		"name": "Felipe Mateus",
 		"email": "contato@felipefm32.com.br",
-		"url": "https://felipefm32.com/"
+		"url": "https://felipemateus.com/"
 	},
 	"license": "CC",
 	"dependencies": {
