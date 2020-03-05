@@ -4,7 +4,7 @@
 	"description": "Domino is a game made in node websocket.",
 	"main": "./._build/server.js",
 	"engines": {
-		"node": "6.2.0"
+		"node": "10.18.0"
 	},
 	"scripts": {
 		"build": "tslint --project . && tsc",
@@ -35,14 +35,13 @@
 	"license": "CC",
 	"dependencies": {
 		"dotenv": "8.2.0",
-		"@types/socket.io": "^2.1.2",
 		"express": "^4.16.4",
 		"express-session": "~1.15.1",
 		"socket.io": "^2.2.0"
 	},
 	"devDependencies": {
+		"@types/socket.io": "^2.1.2",
 		"@types/node": "^7.0.5",
-		"concurrently": "^3.5.0",
 		"nodemon": "^1.11.0",
 		"typescript": "3.7.2",
 		"@types/dotenv": "8.2.0",
