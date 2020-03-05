@@ -7,14 +7,10 @@
 		"node": "6.2.0"
 	},
 	"scripts": {
-		"ts:watch": "tsc -w",
-		"ts:build": "tsc",
-		"serve": "nodemon ._build/Server.js",
-		"watch": "concurrently \"npm run ts:watch\" \"npm run serve\"",
-		"build": "npm run ts:build && tsc public/js/Game.ts --out public/js/Game.js ",
-		"prod:serve": "node ._build/Server.js",
-		"start": "npm run prod:serve",
-		"tslint": "tslint -c tslint.json -p tsconfig.json"
+		"build": "tslint --project . && tsc",
+		"start": "nodemon --watch \"src/**/*\" -e ts --exec \"ts-node -r tsconfig-paths/register\" ./src/Server.ts",
+		"lint:ts:base": "tslint --project tsconfig.json --config tslint.json",
+		"lint:ts": "npm run lint:ts:base \"src/**/*.ts\""
 	},
 	"repository": {
 		"type": "git",
@@ -37,6 +33,7 @@
 	},
 	"license": "CC",
 	"dependencies": {
+		"dotenv": "8.2.0",
 		"@types/socket.io": "^2.1.2",
 		"express": "^4.16.4",
 		"express-session": "~1.15.1",
@@ -46,7 +43,12 @@
 		"@types/node": "^7.0.5",
 		"concurrently": "^3.5.0",
 		"nodemon": "^1.11.0",
-		"typescript": "^3.1.6"
+		"typescript": "3.7.2",
+		"@types/dotenv": "8.2.0",
+		"ts-node": "3.3.0",
+		"tsconfig-paths": "3.9.0",
+		"tslint": "5.7.0",
+		"lint-staged": "9.5.0"
 	},
 	"bugs": {
 		"url": "https://github.com/felipefm32/NodeDomino/issues"

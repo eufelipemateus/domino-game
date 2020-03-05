@@ -69,4 +69,5 @@ class Domino{
 		}
 	}
 }
+
 export default new Domino();

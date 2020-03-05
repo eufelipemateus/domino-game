@@ -6,7 +6,6 @@ const socketIo = require("socket.io");
 const Domino_1 = require("./Domino");
 class App {
     constructor() {
-        this.PORT = 8080;
         this.debug = false;
         this.routes();
         this.sockets();

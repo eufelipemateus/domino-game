@@ -1,10 +1,12 @@
+import * as dotenv from 'dotenv';
 import app from "./App";
 import { Server } from 'http';
 
-const port = process.env.PORT || app.PORT;
+dotenv.config();
 
-app.debug = false; 
+const port = process.env.PORT;
+app.debug = !!+process.env.DEBUG; 
 
 app.server.listen(port, function () {
-    console.info(`Server running in  https://localhost:${port}...`);
+    console.info(`Server running in  http://localhost:${port}...`);
 });

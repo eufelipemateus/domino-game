@@ -7,10 +7,8 @@ class App {
     public app: express.Application;
     public server: Server;
     private io: SocketIO.Server;
-    public PORT: number = 8080;
-	public debug:boolean=false;
+	public debug=false;
 	
-
     constructor() {
         this.routes();
         this.sockets();
@@ -18,7 +16,7 @@ class App {
 		this.runtime();
     }
 
-    routes() {
+    private routes() {
         this.app = express();
         this.app.use(express.static('public'));
     }
