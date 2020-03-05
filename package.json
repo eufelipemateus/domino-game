@@ -2,14 +2,14 @@
 	"name": "domino-game",
 	"version": "2.0.1",
 	"description": "Domino is a game made in node websocket.",
-	"main": "._build/server.js",
+	"main": "./._build/server.js",
 	"engines": {
 		"node": "6.2.0"
 	},
 	"scripts": {
 		"build": "tslint --project . && tsc",
 		"serve": "nodemon --watch \"src/**/*\" -e ts --exec \"ts-node -r tsconfig-paths/register\" ./src/Server.ts",
-		"start": "node ._build/server.js",
+		"start": "node ./._build/server.js",
 		"lint:ts:base": "tslint --project tsconfig.json --config tslint.json",
 		"lint:ts": "npm run lint:ts:base \"src/**/*.ts\""
 	},
