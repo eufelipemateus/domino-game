@@ -8,17 +8,10 @@ class Domino {
         this.Cartas = Array();
         this.daCartas();
     }
-    daCartas() {
-        let index = 0;
-        for (let i = 0; i < 7; i++) {
-            for (let p = 0; p < 7; p++) {
-                if (p >= i)
-                    this.Cartas[index++] = [i, p];
-            }
-        }
-    }
     emabaralhar() {
-        let MinhaMao = Array(), rand, index;
+        const MinhaMao = Array();
+        let rand;
+        let index;
         for (index = 0; index < 7; index++) {
             do {
                 rand = this.Cartas[Math.floor((Math.random() * 28))];
@@ -29,21 +22,18 @@ class Domino {
         return MinhaMao;
     }
     primeiraJogada(card) {
-        if (card.indexOf(this.Cartas[27]) > -1)
+        if (card.indexOf(this.Cartas[27]) > -1) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
     indexOfGamers(socket) {
         return this.Gamers.indexOf(socket);
     }
-    indexOfGamerCards(gamer, card) {
-        return gamer.cards.findIndex(function (element, index) {
-            return this.card === element;
-        }, card);
-    }
     removeGamerCard(gamer, card) {
-        let mIndex = this.indexOfGamerCards(gamer, card);
+        const mIndex = this.indexOfGamerCards(gamer, card);
         if (mIndex > -1) {
             gamer.cards.splice(mIndex, 1);
         }
@@ -51,16 +41,31 @@ class Domino {
     isGamerWinner(gamer) {
         return (gamer.cards.length == 0);
     }
+    removeCardInHand(gamer, card) {
+        const mIndex = this.indexOfHandCards(card);
+        if (mIndex > -1) {
+            gamer.CartasEmMaos.splice(mIndex, 1);
+        }
+    }
+    daCartas() {
+        let index = 0;
+        for (let i = 0; i < 7; i++) {
+            for (let p = 0; p < 7; p++) {
+                if (p >= i) {
+                    this.Cartas[index++] = [i, p];
+                }
+            }
+        }
+    }
     indexOfHandCards(card) {
         return this.CartasEmMaos.findIndex((element, index) => {
             return card === element;
         });
     }
-    removeCardInHand(gamer, card) {
-        let mIndex = this.indexOfHandCards(card);
-        if (mIndex > -1) {
-            gamer.CartasEmMaos.splice(mIndex, 1);
-        }
+    indexOfGamerCards(gamer, card) {
+        return gamer.cards.findIndex(function (element, index) {
+            return this.card === element;
+        }, card);
     }
 }
 exports.default = new Domino();
