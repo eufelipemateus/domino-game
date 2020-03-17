@@ -1,8 +1,8 @@
 {
 	"name": "domino-game",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Domino is a game made in node websocket.",
-	"main": "./._build/server.js",
+	"main": "./._build/Server.js",
 	"engines": {
 		"node": "10.18.0"
 	},
@@ -53,5 +53,5 @@
 	"bugs": {
 		"url": "https://github.com/felipefm32/NodeDomino/issues"
 	},
-	"homepage": "https://github.com/felipefm32/NodeDomino#readme"
+	"homepage": "https://domino.felipefm32.com"
 }
