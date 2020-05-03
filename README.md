@@ -20,6 +20,11 @@ cd NodeDomino
 ```bash
 npm install
 ```
+## Building
+
+```bash
+npm run build 
+```
 
 ## Running
 
