@@ -10,6 +10,7 @@
 		"build": "tslint --project . && tsc",
 		"serve": "nodemon --watch \"src/**/*\" -e ts --exec \"ts-node -r tsconfig-paths/register\" ./src/Server.ts",
 		"start": "node ./._build/Server.js",
+		"pm2:start": "pm2 start ./._build/Server.js --name dominio-felipefm32",
 		"lint:ts:base": "tslint --project tsconfig.json --config tslint.json",
 		"lint:ts": "npm run lint:ts:base \"src/**/*.ts\""
 	},
