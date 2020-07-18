@@ -18,7 +18,7 @@ class App {
 
     private routes() {
         this.app = express();
-        this.app.use(express.static('public'));
+        this.app.use(express.static('./public'));
     }
 
     private sockets(): void {
@@ -39,7 +39,7 @@ class App {
                 socket.emit('HAND', cards);
                 domino.Gamers.push(socket);
 
-                domino.Gamers.forEach((s, index) => {
+                domino.Gamers.map((s, index) => {
                     socket.emit('GAMER NAME', {gamer: index, name: s.name});
                 });
             });

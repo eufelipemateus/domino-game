@@ -49,7 +49,7 @@ class Domino {
         return (gamer.cards.length == 0);
     }
 
-    public removeCardInHand(gamer, card) {// not working
+    public removeCardInHand(gamer, card) {
         const mIndex = this.indexOfHandCards(card);
         if (mIndex > -1) {
             gamer.CartasEmMaos.splice(mIndex, 1);
@@ -67,10 +67,10 @@ class Domino {
         }
     }
 
-    private  indexOfHandCards(card) {// not working
-        return this.CartasEmMaos.findIndex((element, index) => {
-            return  card === element;
-        });
+    private  indexOfHandCards(card) {
+        return this.CartasEmMaos.findIndex(function(element, index){
+            return  this.card === element;
+        }, card);
     }
 
     private indexOfGamerCards(gamer, card) {
