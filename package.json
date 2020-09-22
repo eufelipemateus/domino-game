@@ -7,12 +7,13 @@
 		"node": "10.18.0"
 	},
 	"scripts": {
-		"build": "tslint --project . && tsc",
+		"build": "tslint --project . && tsc --declaration && npm run minify",
 		"serve": "nodemon --watch \"src/**/*\" -e ts --exec \"ts-node -r tsconfig-paths/register\" ./src/Server.ts",
 		"start": "node ./._build/Server.js",
 		"pm2:start": "pm2 start ./._build/Server.js --name dominio-felipefm32",
 		"lint:ts:base": "tslint --project tsconfig.json --config tslint.json",
-		"lint:ts": "npm run lint:ts:base \"src/**/*.ts\""
+        "lint:ts": "npm run lint:ts:base \"src/**/*.ts\"",
+        "minify": "jsmin -o public/js/Game.min.js public/js/Game.js"
 	},
 	"repository": {
 		"type": "git",
@@ -41,15 +42,16 @@
 		"socket.io": "^2.2.0"
 	},
 	"devDependencies": {
-		"@types/socket.io": "^2.1.2",
-		"@types/node": "^7.0.5",
-		"nodemon": "^1.11.0",
-		"typescript": "3.7.2",
 		"@types/dotenv": "8.2.0",
+		"@types/node": "^7.0.5",
+		"@types/socket.io": "^2.1.2",
+		"jsmin": "^1.0.1",
+		"lint-staged": "9.5.0",
+		"nodemon": "^1.11.0",
 		"ts-node": "3.3.0",
 		"tsconfig-paths": "3.9.0",
 		"tslint": "5.7.0",
-		"lint-staged": "9.5.0"
+		"typescript": "3.7.2"
 	},
 	"bugs": {
 		"url": "https://github.com/felipefm32/NodeDomino/issues"

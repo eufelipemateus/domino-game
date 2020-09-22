@@ -10,7 +10,7 @@ domino-game é jogo de dominó online feito em html5,node.js e websocket.
 
 
 ```bash
-git clone https://github.com/felipefm32/NodeDomino.git
+git clone https://github.com/eufelipemateus/NodeDomino.git
 ```
 
 ```bash
@@ -38,4 +38,4 @@ Veja Mais [Aqui](https://felipemateus.com/blog/2017/06/domino).
 
 ## Author
 
-**[Felipe Mateus](https://felipemateus.com)** - [Felipefm32](https://github.com/felipefm32)
+**[Felipe Mateus](https://felipemateus.com)** - [Felipefm32](https://github.com/eufelipemateus)

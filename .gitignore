@@ -9,3 +9,4 @@ node_modules/
 # build files
 package-lock.json
 ._build
+public/js/Game.min.js

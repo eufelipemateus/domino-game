@@ -60,7 +60,7 @@ class App {
                 socket.broadcast.emit('MOVIMENT', msg);
                 domino.removeGamerCard(socket, msg.value);
                 if (domino.isGamerWinner(socket)) {
-                    this.reboot('O Jogador' + (domino.indexOfGamers(socket) + 1) + ' Venceu!');
+                    this.reboot('O Jogador ' + (domino.indexOfGamers(socket) + 1) +  ' -  "' + domino.Gamers[domino.indexOfGamers(socket)].name + '" Venceu!');
                     if (this.debug) {
                         console.info('User Winner!');
                     }
