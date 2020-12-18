@@ -1,6 +1,6 @@
 {
 	"name": "domino-game",
-	"version": "2.0.2",
+	"version": "2.0.3",
 	"description": "Domino is a game made in node websocket.",
 	"main": "./._build/Server.js",
 	"engines": {

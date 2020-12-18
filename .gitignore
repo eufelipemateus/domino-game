@@ -7,6 +7,5 @@ node_modules/
 .npm
 
 # build files
-package-lock.json
 ._build
 public/js/Game.min.js
