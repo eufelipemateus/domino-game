@@ -17,7 +17,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/felipefm32/NodeDomino.git"
+		"url": "git+https://github.com/eufelipemateus/NodeDomino.git"
 	},
 	"keywords": [
 		"Domino",
@@ -54,7 +54,7 @@
 		"typescript": "3.7.2"
 	},
 	"bugs": {
-		"url": "https://github.com/felipefm32/NodeDomino/issues"
+		"url": "https://github.com/eufelipemateus/NodeDomino/issues"
 	},
-	"homepage": "https://domino.felipefm32.com"
+    "homepage": "https://domino.felipemateus.com"
 }
