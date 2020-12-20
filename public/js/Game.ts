@@ -1,4 +1,4 @@
-import {Modal} from './Modal';
+import {Modal} from './Modal.js';
 
 export class Game {
 
@@ -6,10 +6,12 @@ export class Game {
     private Jogador;
     private Debug;
     private socket;
+    private modal: Modal;
 
     constructor(io) {
         this.socket = io();
         this.listen();
+        this.modal = new Modal(this);
     }
 
     private newCard(nums, horizontal= false, invertido= false) {
@@ -129,15 +131,14 @@ export class Game {
         document.getElementById('status').innerHTML = 'Aguardando jogadores...';
     }
 
+    public newConection(name: string){
+        this.socket.emit('NEW CONNECTION', name);
+    }
     /*** Listen connections  ***/
     private listen() {
         this.socket.on('connect', () =>  {
                 if (this.Debug) { console.info('conectado!!'); }
-                
-                const modal = new Modal();
-                 
-                //this.socket.emit('NEW CONNECTION', window.prompt('Digite seu nome:'));
-
+                this.modal.open();
         });
         this.socket.on('HAND', (msg) => {
             this.Reiniciar();

@@ -34,8 +34,8 @@ npm start
 
 
 
-Veja Mais [Aqui](https://felipemateus.com/blog/2017/06/domino).
+[Veja mais sobre o Projeto](https://eufelipemateus.com/blog/2017/06/domino).
 
 ## Author
 
-**[Felipe Mateus](https://felipemateus.com)** - [eufelipemateus](https://github.com/eufelipemateus)
+**[Felipe Mateus](https://eufelipemateus.com)** - [eufelipemateus](https://github.com/eufelipemateus)

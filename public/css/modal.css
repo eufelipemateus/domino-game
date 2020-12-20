@@ -15,7 +15,7 @@
   }
   
   /* Modal Content/Box */
-  .modal-content {
+.modal .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
@@ -27,29 +27,38 @@
   }
 
   /* Modal Header */
-.modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
+.modal .modal-header {
+    padding: 2px 5px;
+    background-color: #3492d1;
     color: white;
+    font-size: small;
   }
   
  /* Modal Body */
-.modal-body {padding: 2px 16px;}
+.modal .modal-body {padding: 27px 160px;}
+
+/* Modal Footer */
+.modal .modal-footer {
+    padding: 2px 16px;
+    background-color: #3492d1;
+    color: white;
+    text-align: right ;
+}
 
   /* The Close Button */
-  .close {
+.modal  .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 39px;
     font-weight: bold;
-  }
+}
   
-  .close:hover,
-  .close:focus {
+.modal .close:hover,
+.modal .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
+}
 
   
 

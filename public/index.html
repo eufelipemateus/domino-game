@@ -15,7 +15,7 @@
 <body>
 	<div>
 		<div id="tabuleiro">
-			<!-- Cartas no Tabuleiro -->
+            <!-- Cartas no Tabuleiro -->
 		</div>
 		<div class="stat">
 			<h1>Estastiticas</h1>
@@ -37,7 +37,7 @@
 	</div>
 	<div>
 		<div id="hand">
-			<!--- Minhas Cartas -->
+            <!--- Minhas Cartas -->
 			<div id="wait"></div>
 		</div>
 		<div id="pass" onclick="game.PassarVez()">
@@ -51,35 +51,22 @@
     </div>
 </body>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.8.2/system.min.js" integrity="sha512-NTHyXJPTxv3Wx003B1pm+/OuUJfVfMpLybXdUW1q7JVVpWrOEo0kwLIcMYY3J4d+RrwzdH2mE2Q1BfSYqzCPog==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.8.2/extras/named-register.min.js" integrity="sha512-XRrZRDEJK7FeoBd7ICImm9S3UNG87nFAUm4td9v2uedBr16byMk9FK4AZ4N608aVHHSKPlhdSWTy/b717KJ54Q==" crossorigin="anonymous"></script>
+
+<script src="/socket.io/socket.io.js"></script>
 <script type="systemjs-importmap">
     {
       "imports": {
-        "output": "./js/outputs/App.js"
+        "modal": "./js/outputs/Modal.js",
+        "game": "./js/outputs/Game.js",  
+        "app": "./js/outputs/App.js",
+        "events":"Window.EventEmitter"
       }
 
     }
 </script>
-
-<script type="systemjs-module" src="import:output"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.8.2/system.min.js" integrity="sha512-NTHyXJPTxv3Wx003B1pm+/OuUJfVfMpLybXdUW1q7JVVpWrOEo0kwLIcMYY3J4d+RrwzdH2mE2Q1BfSYqzCPog==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.8.2/extras/named-register.min.js" integrity="sha512-XRrZRDEJK7FeoBd7ICImm9S3UNG87nFAUm4td9v2uedBr16byMk9FK4AZ4N608aVHHSKPlhdSWTy/b717KJ54Q==" crossorigin="anonymous"></script>
-    
-    <script>
-
-    /*console.log("rodou");
-
-    const game = null;
-    System.import('output').then((importedObject) => {
-        console.log(importedObject)
-        console.log()
-    const App = importedObject.default
-    game = new App()
-        console.log(game);
-    })
-    for (const [id, ns] of System.entries()) {
-    console.log(id); // 'http://localhost/path-to-file.js'
-    console.log(ns); // { exportName: 'value' }
-    };*/
-
-</script>
+<script type="systemjs-module" src="import:modal"></script>
+<script type="systemjs-module" src="import:game"></script>
+<script async type="systemjs-module" src="import:app"></script>
 </html>

@@ -1,9 +1,7 @@
-import io from 'socket.io-client';
-import {Game} from './Game';
+import { Game } from './Game.js'
 
-export default class App {
-    private game ;
-    constructor() {
-       this.game = new Game(io());
-    }
+declare global {
+    interface Window { game: Game; }
 }
+
+window.game =  new Game(window.io);

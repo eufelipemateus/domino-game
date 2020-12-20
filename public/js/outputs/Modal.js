@@ -5,40 +5,91 @@ System.register([], function (exports_1, context_1) {
     return {
         setters: [],
         execute: function () {
-            Modal = /** @class */ (function () {
-                function Modal() {
+            Modal = class Modal {
+                constructor(game) {
+                    this.modal = null;
+                    this.closeButton = null;
+                    this.inputName = null;
+                    this.modalButton = null;
+                    this.game = null;
                     // Get the modal
-                    var modal = this.__create();
-                    console.log(modal);
+                    this.__create();
+                    this.__Listen();
+                    this.game = game;
                 }
-                Modal.prototype.__create = function () {
-                    var modal = document.createElement('div');
-                    modal.classList.add('modal');
-                    var modalContent = document.createElement('div');
+                __create() {
+                    this.modal = document.createElement('div');
+                    this.modal.classList.add('modal');
+                    let modalContent = document.createElement('div');
                     modalContent.classList.add('modal-content');
                     // Header
                     var modalHeader = document.createElement('div');
                     modalHeader.classList.add('modal-header');
-                    var modalclose = document.createElement('span');
+                    /*let modalclose = document.createElement('span');
                     modalclose.classList.add('close');
-                    modalclose.innerHTML = '&times;';
-                    modalHeader.appendChild(modalclose);
-                    var title = document.createElement('h2');
+                    modalclose.innerHTML = '&times;'
+            
+                    this.closeButton = modalclose;
+                    modalHeader.appendChild(modalclose);*/
+                    let title = document.createElement('h2');
                     title.innerHTML = 'Put a Nickname';
                     modalHeader.appendChild(title);
                     modalContent.appendChild(modalHeader);
                     //Body
-                    var modalBody = document.createElement('div');
+                    let modalBody = document.createElement('div');
                     modalBody.classList.add('modal-body');
+                    let label = document.createElement('label');
+                    label.innerHTML = "Name:";
+                    modalBody.appendChild(label);
+                    this.inputName = document.createElement('input');
+                    this.inputName.setAttribute('placeholder', 'João Inacio');
+                    modalBody.appendChild(this.inputName);
                     modalContent.appendChild(modalBody);
-                    modal.appendChild(modalContent);
-                    document.getElementsByTagName("body")[0].append(modal);
-                    return modal;
-                };
-                Modal.prototype.open = function () {
-                };
-                return Modal;
-            }());
+                    //Footer
+                    let modalFooter = document.createElement('div');
+                    modalFooter.classList.add('modal-footer');
+                    this.modalButton = document.createElement('button');
+                    this.modalButton.innerHTML = "Confirmar Nome";
+                    modalFooter.appendChild(this.modalButton);
+                    modalContent.appendChild(modalFooter);
+                    this.modal.appendChild(modalContent);
+                    document.getElementsByTagName("body")[0].append(this.modal);
+                    return this.modal;
+                }
+                /**
+                 *  Abrir modal
+                 */
+                open() {
+                    this.modal.style.display = "block";
+                }
+                /**
+                 *  Fechar modal
+                 */
+                close() {
+                    this.modal.style.display = 'none';
+                }
+                /**
+                 *
+                 * @param input
+                 */
+                __saveName(input) {
+                    this.game.newConection(input.value);
+                    this.close();
+                }
+                /**
+                 *  __Listen
+                 */
+                __Listen() {
+                    this.modalButton.addEventListener("click", () => {
+                        this.__saveName(this.inputName);
+                    }, false);
+                    this.inputName.addEventListener("keypress", (e) => {
+                        if (e.key === 'Enter') {
+                            this.__saveName(this.inputName);
+                        }
+                    }, false);
+                }
+            };
             exports_1("Modal", Modal);
         }
     };

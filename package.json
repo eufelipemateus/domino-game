@@ -1,10 +1,10 @@
 {
 	"name": "domino-game",
-	"version": "2.0.3",
-	"description": "Domino is a game made in node websocket.",
+	"version": "2.0.4",
+	"description": "Domino is a game multiplayer made in node socket.io, typescript, node.js and html5.",
 	"main": "./._build/Server.js",
 	"engines": {
-		"node": "10.18.0"
+		"node": "10.19.0"
 	},
 	"scripts": {
 		"build": "tslint --project . && tsc --declaration && npm run minify",
@@ -14,7 +14,7 @@
 		"lint:ts:base": "tslint --project tsconfig.json --config tslint.json",
 		"lint:ts": "npm run lint:ts:base \"src/**/*.ts\"",
 		"minify": "jsmin -o public/js/Game.min.js public/js/Game.js  public/js/Modal.js",
-		"compile-front": "tsc -outDir  public/js/outputs  public/js/*.ts  --module system"
+		"compile-front": "tsc -p public/tsconfig.json"
 	},
 	"repository": {
 		"type": "git",
@@ -23,17 +23,29 @@
 	"keywords": [
 		"Domino",
 		"Game",
-		"Websocket",
+        "multiplaer",
 		"Online",
 		"Express",
 		"HTML5",
 		"Typescript",
-		"socket.io"
+        "socket.io",
+        "realtime",
+        "developers",
+        "dev",
+        "realtime",
+        "Games",
+        "jogo",
+        "dev-pleno",
+        "jogos",
+        "geek",
+        "dom-html",
+        "dev-junior",
+        "full-stack-developer"
 	],
 	"author": {
 		"name": "Felipe Mateus",
 		"email": "contato@felipefm32.com.br",
-		"url": "https://felipemateus.com/"
+		"url": "https://eufelipemateus.com/"
 	},
 	"license": "CC",
 	"dependencies": {
@@ -41,14 +53,14 @@
 		"dotenv": "8.2.0",
 		"express": "^4.16.4",
 		"express-session": "~1.15.1",
-		"socket.io": "^2.2.0",
+		"socket.io": "^3.0.4",
 		"socket.io-client": "^3.0.4",
 		"systemjs": "^6.8.2"
 	},
 	"devDependencies": {
 		"@types/dotenv": "8.2.0",
-		"@types/node": "^7.0.5",
-		"@types/socket.io": "^2.1.2",
+		"@types/node": "^7.10.14",
+		"@types/socket.io": "^2.1.12",
 		"jsmin": "^1.0.1",
 		"lint-staged": "9.5.0",
 		"nodemon": "^1.11.0",

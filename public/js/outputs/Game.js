@@ -1,26 +1,25 @@
-System.register(["./Modal"], function (exports_1, context_1) {
+System.register(["./Modal.js"], function (exports_1, context_1) {
     "use strict";
-    var Modal_1, Game;
+    var Modal_js_1, Game;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
-            function (Modal_1_1) {
-                Modal_1 = Modal_1_1;
+            function (Modal_js_1_1) {
+                Modal_js_1 = Modal_js_1_1;
             }
         ],
         execute: function () {
-            Game = /** @class */ (function () {
-                function Game(io) {
+            Game = class Game {
+                constructor(io) {
                     this.Ultimo = -1;
                     this.socket = io();
                     this.listen();
+                    this.modal = new Modal_js_1.Modal(this);
                 }
-                Game.prototype.newCard = function (nums, horizontal, invertido) {
-                    if (horizontal === void 0) { horizontal = false; }
-                    if (invertido === void 0) { invertido = false; }
-                    var n1 = nums[0];
-                    var n2 = nums[1];
-                    var dcard = document.createElement('div');
+                newCard(nums, horizontal = false, invertido = false) {
+                    const n1 = nums[0];
+                    const n2 = nums[1];
+                    const dcard = document.createElement('div');
                     dcard.classList.add('card');
                     dcard.setAttribute('value', nums);
                     if (horizontal) {
@@ -29,12 +28,12 @@ System.register(["./Modal"], function (exports_1, context_1) {
                     if (invertido) {
                         dcard.classList.add('R180');
                     }
-                    var span = document.createElement('span');
+                    let span = document.createElement('span');
                     span.classList.add('dice');
                     span.classList.add('dice-' + n1);
                     span.setAttribute('value', n1);
                     dcard.appendChild(span);
-                    var hr = document.createElement('hr');
+                    const hr = document.createElement('hr');
                     dcard.appendChild(hr);
                     span = document.createElement('span');
                     span.classList.add('dice');
@@ -42,166 +41,159 @@ System.register(["./Modal"], function (exports_1, context_1) {
                     span.setAttribute('value', n2);
                     dcard.appendChild(span);
                     return dcard;
-                };
-                Game.prototype.isDouble = function (nums) {
+                }
+                isDouble(nums) {
                     if (nums[0] == nums[1]) {
                         return true;
                     }
                     else {
                         return false;
                     }
-                };
-                Game.prototype.isInverted = function (nums) {
+                }
+                isInverted(nums) {
                     if (nums[1] == this.Ultimo && (nums[1] != nums[0])) {
                         return true;
                     }
                     else {
                         return false;
                     }
-                };
-                Game.prototype.isAllowed = function (nums, num) {
+                }
+                isAllowed(nums, num) {
                     if ((num == this.Ultimo) || ((nums[0] == 6) && (nums[1] == 6))) {
                         return true;
                     }
                     else {
                         return false;
                     }
-                };
-                Game.prototype.changeUltimo = function (nums) {
-                    var _this = this;
-                    var ultimo = this.Ultimo;
-                    nums.forEach(function (num) {
-                        if (num != ultimo && num != _this.Ultimo) {
+                }
+                changeUltimo(nums) {
+                    let ultimo = this.Ultimo;
+                    nums.forEach((num) => {
+                        if (num != ultimo && num != this.Ultimo) {
                             ultimo = num;
                         }
                     });
                     this.Ultimo = ultimo;
-                };
-                Game.prototype.OpenToken = function () {
+                }
+                OpenToken() {
                     document.getElementById('pass').classList.add('active');
                     document.getElementById('wait').classList.add('disabled');
                     document.getElementById('status').innerHTML = 'Minha Vez!';
-                };
-                Game.prototype.CloseToken = function () {
+                }
+                CloseToken() {
                     document.getElementById('pass').classList.remove('active');
                     document.getElementById('wait').classList.remove('disabled');
                     document.getElementById('status').innerHTML = 'Aguardando Vez...';
-                };
-                Game.prototype.PassarVez = function () {
+                }
+                PassarVez() {
                     this.socket.emit('PASS');
                     this.CloseToken();
-                };
-                Game.prototype.downTabScroll = function () {
-                    var objDiv = document.getElementById('tabuleiro');
+                }
+                downTabScroll() {
+                    const objDiv = document.getElementById('tabuleiro');
                     objDiv.scrollTop = objDiv.scrollHeight;
-                };
-                Game.prototype.createHand = function (Hand) {
-                    var _this = this;
-                    var _loop_1 = function (nums) {
-                        var card = this_1.newCard(nums, false);
-                        var dices = card.querySelectorAll('.dice');
-                        dices.forEach(function (dice, index) {
+                }
+                createHand(Hand) {
+                    for (const nums of Hand) {
+                        const card = this.newCard(nums, false);
+                        const dices = card.querySelectorAll('.dice');
+                        dices.forEach((dice, index) => {
                             dice.classList.add('hand');
-                            dice.addEventListener('click', function (e) {
+                            dice.addEventListener('click', (e) => {
                                 // Aqui entra Função Pra selecionar Peça no tabuleiro
-                                if (!_this.isAllowed(nums, nums[index])) {
+                                if (!this.isAllowed(nums, nums[index])) {
                                     return false;
                                 }
-                                var clone = e.srcElement.parentElement.cloneNode(true);
-                                if (_this.isDouble(nums)) {
+                                const clone = e.srcElement.parentElement.cloneNode(true);
+                                if (this.isDouble(nums)) {
                                     clone.classList.add('R90');
                                 }
-                                if (_this.isInverted(nums)) {
+                                if (this.isInverted(nums)) {
                                     clone.classList.add('R180');
                                 }
                                 document.getElementById('tabuleiro').appendChild(clone);
-                                _this.downTabScroll();
+                                this.downTabScroll();
                                 e.srcElement.parentElement.remove();
-                                _this.changeUltimo(nums);
-                                _this.CloseToken();
-                                _this.socket.emit('gaming', { value: nums, last: _this.Ultimo });
+                                this.changeUltimo(nums);
+                                this.CloseToken();
+                                this.socket.emit('gaming', { value: nums, last: this.Ultimo });
                             });
-                            dice.addEventListener('mouseover', function (e) {
-                                if (_this.isAllowed(nums, nums[index])) {
+                            dice.addEventListener('mouseover', (e) => {
+                                if (this.isAllowed(nums, nums[index])) {
                                     e.srcElement.classList.add('hoverPossible');
                                 }
                                 else {
                                     e.srcElement.classList.add('hoverImPossible');
                                 }
                             });
-                            dice.addEventListener('mouseout', function (e) {
+                            dice.addEventListener('mouseout', (e) => {
                                 e.srcElement.classList.remove('hoverPossible');
                                 e.srcElement.classList.remove('hoverImPossible');
                             });
                         });
                         document.getElementById('hand').appendChild(card);
-                    };
-                    var this_1 = this;
-                    for (var _i = 0, Hand_1 = Hand; _i < Hand_1.length; _i++) {
-                        var nums = Hand_1[_i];
-                        _loop_1(nums);
                     }
-                };
-                Game.prototype.Reiniciar = function () {
+                }
+                Reiniciar() {
                     document.getElementById('tabuleiro').innerHTML = '';
-                    var cards = document.querySelectorAll('#hand > div:not(#wait) ');
-                    cards.forEach(function (card) {
+                    const cards = document.querySelectorAll('#hand > div:not(#wait) ');
+                    cards.forEach((card) => {
                         card.parentNode.removeChild(card);
                     });
                     document.getElementById('status').innerHTML = 'Aguardando jogadores...';
-                };
+                }
+                newConection(name) {
+                    this.socket.emit('NEW CONNECTION', name);
+                }
                 /*** Listen connections  ***/
-                Game.prototype.listen = function () {
-                    var _this = this;
-                    this.socket.on('connect', function () {
-                        if (_this.Debug) {
+                listen() {
+                    this.socket.on('connect', () => {
+                        if (this.Debug) {
                             console.info('conectado!!');
                         }
-                        var modal = new Modal_1.Modal();
-                        //this.socket.emit('NEW CONNECTION', window.prompt('Digite seu nome:'));
+                        this.modal.open();
                     });
-                    this.socket.on('HAND', function (msg) {
-                        _this.Reiniciar();
-                        _this.createHand(msg);
+                    this.socket.on('HAND', (msg) => {
+                        this.Reiniciar();
+                        this.createHand(msg);
                     });
-                    this.socket.on('GAMER NAME', function (msg) {
+                    this.socket.on('GAMER NAME', (msg) => {
                         document.getElementById('gamerName_' + msg.gamer).innerHTML = msg.name;
                         document.getElementById('gamer_num').innerHTML = (msg.gamer + 1);
-                        _this.Jogador = msg.gamer;
+                        this.Jogador = msg.gamer;
                     });
-                    this.socket.on('MOVIMENT', function (msg) {
-                        var horizontal = false;
-                        var invertido = false;
-                        if (_this.isDouble(msg.value)) {
+                    this.socket.on('MOVIMENT', (msg) => {
+                        let horizontal = false;
+                        let invertido = false;
+                        if (this.isDouble(msg.value)) {
                             horizontal = true;
                         }
-                        if (_this.isInverted(msg.value)) {
+                        if (this.isInverted(msg.value)) {
                             invertido = true;
                         }
-                        var card = _this.newCard(msg.value, horizontal, invertido);
+                        const card = this.newCard(msg.value, horizontal, invertido);
                         document.getElementById('tabuleiro').appendChild(card);
-                        _this.downTabScroll();
-                        _this.Ultimo = msg.last;
+                        this.downTabScroll();
+                        this.Ultimo = msg.last;
                     });
-                    this.socket.on('TOKEN', function (token) {
-                        _this.CloseToken();
-                        if (token == _this.Jogador) {
-                            _this.OpenToken();
+                    this.socket.on('TOKEN', (token) => {
+                        this.CloseToken();
+                        if (token == this.Jogador) {
+                            this.OpenToken();
                         }
                         document.getElementById('Tokenjogador_' + token).checked = true;
                     });
-                    this.socket.on('REBOOT', function (msg) {
+                    this.socket.on('REBOOT', (msg) => {
                         alert(msg);
-                        _this.Reiniciar();
+                        this.Reiniciar();
                     });
-                    this.socket.on('INFO', function (msg) {
+                    this.socket.on('INFO', (msg) => {
                         document.getElementById('gamers').innerHTML = msg.Gamers;
                         document.getElementById('tab').innerHTML = msg.Tab;
                         document.getElementById('cards_in_hand').innerHTML = msg.CardsInHand;
                     });
-                };
-                return Game;
-            }());
+                }
+            };
             exports_1("Game", Game);
         }
     };

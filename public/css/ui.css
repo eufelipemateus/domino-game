@@ -1,46 +1,45 @@
 body{
-	min-width:1024px;
+	min-width:1024px !important;
 }
-.card-domino{
-	border:1px solid #000;
-	text-align:center;
+.card{
+    text-align:center;
 	display:block;
 	width:64px;
-	height:148px;
+	height:155px;
 	border:2px solid #000;
 	border-radius:10%;
 	padding:5px;
 	margin:0.2% auto;
 }
-.card-domino.R90{
+.card.R90{
 	-ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
-	line-height:64px;
+    /*line-height:64px;*/
 	margin:-4.5% auto;
 }
-.card-domino.R180{
+.card.R180{
 	-ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
 	/*line-height:64px;
-	margin:-4.5% auto;*/
+	margin:-8.5% auto;*/
 }
 
 
-.card-domino .dice{
+.card .dice{
 	font-family:"Dice";
 	width:64px;
 	height:64px;
 	font-size:4em;
 }
-.card-domino hr {
+.card hr {
 	border-top: 4px double #000;
 	text-align: center;
 }
 #tabuleiro{
 	width:70%;
-	height:400px;
+	height:425px;
 	text-align:center;
 	border-right:2px solid #000;
 	border-bottom:2px solid #000;
@@ -48,10 +47,10 @@ body{
 	display:inline-block;
 }
 .stat{
-	height:400px;
+	height:425px;
 	width:29.5%;
 	display:inline-block;
-	float: right;
+	float:right;
 }
 .stat h1{
 	text-align:center;
@@ -94,19 +93,19 @@ body{
 	vertical-align:middle;
 
 }
-#hand .card-domino{
+#hand .card{
 	display:inline-block;
 	margin:0 0.1%;
 }
-#hand .card-domino .dice.hand{
+#hand .card .dice.hand{
 	cursor:pointer;
 	border:1px solid #FFF;
 	border-radius:35%;
 }
-#hand .card-domino .dice.hand.hoverPossible{
+#hand .card .dice.hand.hoverPossible{
 	border-color:#0F0;
 }
-#hand .card-domino .dice.hand.hoverImPossible{
+#hand .card .dice.hand.hoverImPossible{
 	border-color:#F00;
 }
 #hand #wait{

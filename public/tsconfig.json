@@ -1,0 +1,22 @@
+{
+    "extends": "../tsconfig.json",
+	"compilerOptions": {
+        "baseUrl": ".",
+		"target": "es2019",
+		"module": "system",
+		"sourceMap": false,
+        "outDir": "js/outputs",
+        "moduleResolution": "node",
+       
+    },
+    "lib": ["es2019", "dom"],
+	"include": [
+        "js/**/*.ts",
+	],
+	"exclude": [
+		"node_modules"
+	],
+	"types": [
+		"node"
+	]
+}

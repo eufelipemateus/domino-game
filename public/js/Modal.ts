@@ -1,42 +1,108 @@
+import { Game } from "./Game";
+
 export class Modal{
-    constructor() {
+    private modal: HTMLDivElement  = null;
+    private closeButton: HTMLSpanElement  = null;
+
+    public inputName: HTMLInputElement  = null;
+    public modalButton: HTMLButtonElement  = null;
+
+    public game: Game = null;
+
+    constructor(game: Game) {
         // Get the modal
-        var modal = this.__create();
-        console.log(modal);
+         this.__create();
+         this.__Listen();
+         this.game = game;
     }
 
     private __create(){
-        var modal = document.createElement('div');
-        modal.classList.add('modal');
+        this.modal = document.createElement('div');
+        this.modal.classList.add('modal');
 
-        var modalContent = document.createElement('div');
+        let modalContent = document.createElement('div');
         modalContent.classList.add('modal-content');
 
         // Header
         var modalHeader = document.createElement('div');
         modalHeader.classList.add('modal-header');
-        var modalclose = document.createElement('span');
+        /*let modalclose = document.createElement('span');
         modalclose.classList.add('close');
         modalclose.innerHTML = '&times;'
-        modalHeader.appendChild(modalclose);
-        var title = document.createElement('h2');
+
+        this.closeButton = modalclose;
+        modalHeader.appendChild(modalclose);*/
+        let title = document.createElement('h2');
         title.innerHTML = 'Put a Nickname'
         modalHeader.appendChild(title);
         modalContent.appendChild(modalHeader);
 
         //Body
-        var modalBody = document.createElement('div');
+        let modalBody = document.createElement('div');
         modalBody.classList.add('modal-body');
+
+        let label = document.createElement('label');
+        label.innerHTML = "Name:"
+        modalBody.appendChild(label);
+
+        this.inputName = document.createElement('input');
+        this.inputName.setAttribute('placeholder', 'João Inacio');
+        modalBody.appendChild(this.inputName);
+
         modalContent.appendChild(modalBody);
 
-        modal.appendChild(modalContent);
-        document.getElementsByTagName("body")[0].append(modal);
-        return modal;
+
+        //Footer
+        let modalFooter = document.createElement('div');
+        modalFooter.classList.add('modal-footer');
+
+        this.modalButton = document.createElement('button');
+        
+        this.modalButton.innerHTML = "Confirmar Nome"
+        modalFooter.appendChild(this.modalButton);
+
+        modalContent.appendChild(modalFooter);
+  
+        this.modal.appendChild(modalContent);
+
+        document.getElementsByTagName("body")[0].append(this.modal);
+
+        return this.modal;
+    }
+    /**
+     *  Abrir modal
+     */
+    public open(){
+        this.modal.style.display= "block";
     }
 
+    /**
+     *  Fechar modal
+     */
+    public close(){
+        this.modal.style.display = 'none';
+    }
+    /**
+     * 
+     * @param input 
+     */
+    private __saveName(input: HTMLInputElement ) {
+        this.game.newConection(input.value);
+        this.close();
+    }
+    /**
+     *  __Listen
+     */
+    private  __Listen() {
+        this.modalButton.addEventListener("click",()=>{
+            this.__saveName(this.inputName)
+        }, false);
 
-    private open(){
-
+        this.inputName.addEventListener("keypress",(e)=>{
+            if (e.key === 'Enter') {
+                this.__saveName(this.inputName)
+            }
+        }, false);
     }
 
 }
