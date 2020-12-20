@@ -12,8 +12,9 @@
 		"start": "node ./._build/Server.js",
 		"pm2:start": "pm2 start ./._build/Server.js --name dominio-felipefm32",
 		"lint:ts:base": "tslint --project tsconfig.json --config tslint.json",
-        "lint:ts": "npm run lint:ts:base \"src/**/*.ts\"",
-        "minify": "jsmin -o public/js/Game.min.js public/js/Game.js"
+		"lint:ts": "npm run lint:ts:base \"src/**/*.ts\"",
+		"minify": "jsmin -o public/js/Game.min.js public/js/Game.js  public/js/Modal.js",
+		"compile-front": "tsc -outDir  public/js/outputs  public/js/*.ts  --module system"
 	},
 	"repository": {
 		"type": "git",
@@ -36,10 +37,13 @@
 	},
 	"license": "CC",
 	"dependencies": {
+		"@types/socket.io-client": "^1.4.34",
 		"dotenv": "8.2.0",
 		"express": "^4.16.4",
 		"express-session": "~1.15.1",
-		"socket.io": "^2.2.0"
+		"socket.io": "^2.2.0",
+		"socket.io-client": "^3.0.4",
+		"systemjs": "^6.8.2"
 	},
 	"devDependencies": {
 		"@types/dotenv": "8.2.0",
@@ -56,5 +60,5 @@
 	"bugs": {
 		"url": "https://github.com/eufelipemateus/NodeDomino/issues"
 	},
-    "homepage": "https://domino.felipemateus.com"
+	"homepage": "https://domino.felipemateus.com"
 }

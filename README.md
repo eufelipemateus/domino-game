@@ -38,4 +38,4 @@ Veja Mais [Aqui](https://felipemateus.com/blog/2017/06/domino).
 
 ## Author
 
-**[Felipe Mateus](https://felipemateus.com)** - [Felipefm32](https://github.com/eufelipemateus)
+**[Felipe Mateus](https://felipemateus.com)** - [eufelipemateus](https://github.com/eufelipemateus)

@@ -1,5 +1,6 @@
+import {Modal} from './Modal';
 
-class Game {
+export class Game {
 
     private Ultimo= -1;
     private Jogador;
@@ -132,7 +133,10 @@ class Game {
     private listen() {
         this.socket.on('connect', () =>  {
                 if (this.Debug) { console.info('conectado!!'); }
-                this.socket.emit('NEW CONNECTION', window.prompt('Digite seu nome:'));
+                
+                const modal = new Modal();
+                 
+                //this.socket.emit('NEW CONNECTION', window.prompt('Digite seu nome:'));
 
         });
         this.socket.on('HAND', (msg) => {

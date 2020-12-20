@@ -1,0 +1,150 @@
+body{
+	min-width:1024px;
+}
+.card-domino{
+	border:1px solid #000;
+	text-align:center;
+	display:block;
+	width:64px;
+	height:148px;
+	border:2px solid #000;
+	border-radius:10%;
+	padding:5px;
+	margin:0.2% auto;
+}
+.card-domino.R90{
+	-ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+	line-height:64px;
+	margin:-4.5% auto;
+}
+.card-domino.R180{
+	-ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+	/*line-height:64px;
+	margin:-4.5% auto;*/
+}
+
+
+.card-domino .dice{
+	font-family:"Dice";
+	width:64px;
+	height:64px;
+	font-size:4em;
+}
+.card-domino hr {
+	border-top: 4px double #000;
+	text-align: center;
+}
+#tabuleiro{
+	width:70%;
+	height:400px;
+	text-align:center;
+	border-right:2px solid #000;
+	border-bottom:2px solid #000;
+	overflow-y: scroll;
+	display:inline-block;
+}
+.stat{
+	height:400px;
+	width:29.5%;
+	display:inline-block;
+	float: right;
+}
+.stat h1{
+	text-align:center;
+}
+
+.stat .jogadores{
+	width:100%;
+	margin:2% 0;
+}
+
+.stat .jogadores tr{
+	height:30px;
+}
+.stat .jogadores tr:nth-child(1){
+	background:#0D0;
+}
+.stat .jogadores tr:nth-child(2){
+	background:#F00;
+}
+.stat .jogadores tr:nth-child(3){
+	background:#0DF;
+}
+.stat .jogadores tr:nth-child(4){
+	background:#DF0;
+}
+
+.stat .jogadores tr td:nth-child(1){
+	width:80%;
+	text-align:center;
+}
+.stat .jogadores tr td:nth-child(2){
+	width:20%;
+	text-align:center;
+}
+#hand{
+	display:inline-block;
+	width:60.9%;
+	position:relative;
+	padding:5px;
+	vertical-align:middle;
+
+}
+#hand .card-domino{
+	display:inline-block;
+	margin:0 0.1%;
+}
+#hand .card-domino .dice.hand{
+	cursor:pointer;
+	border:1px solid #FFF;
+	border-radius:35%;
+}
+#hand .card-domino .dice.hand.hoverPossible{
+	border-color:#0F0;
+}
+#hand .card-domino .dice.hand.hoverImPossible{
+	border-color:#F00;
+}
+#hand #wait{
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:2;
+}
+#hand #wait.disabled{
+	display:none;
+}
+#pass{
+	width:64px;
+	height:148px;
+	border:1px solid #000;
+	display:inline-block;
+	border:2px solid #000;
+	border-radius:10%;
+	padding:5px;
+	margin:0 auto;
+	font-weight:bolder;
+}
+#pass.active:hover{
+	background:#6F6;
+	cursor:pointer;
+}
+#pass span{
+	text-align:center;
+	line-height:148px;
+	font-size:12px;
+	margin:0 auto;
+	display:block;
+}
+.rights{
+	border-top:2px solid #000;
+	border-left:2px solid #000;
+	width:29.8%;
+	height:162px;
+	display:inline-block;
+	float:right;
+}
