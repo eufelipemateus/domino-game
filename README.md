@@ -63,7 +63,7 @@ npm start
 
 
 
-[Veja mais sobre o Projeto](https://eufelipemateus.com/blog/2017/06/domino).
+[Veja mais sobre o Dominó](https://eufelipemateus.com/blog/2017/06/domino).
 
   
 
