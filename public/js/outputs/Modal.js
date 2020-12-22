@@ -73,7 +73,12 @@ System.register([], function (exports_1, context_1) {
                  * @param input
                  */
                 __saveName(input) {
-                    this.game.newConection(input.value);
+                    if (input.value !== "") {
+                        this.game.newConection(input.value);
+                    }
+                    else {
+                        this.game.newConection("Usuário Qualquer! (No Name)");
+                    }
                     this.close();
                 }
                 /**

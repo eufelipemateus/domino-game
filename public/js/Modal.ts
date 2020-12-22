@@ -83,11 +83,15 @@ export class Modal{
         this.modal.style.display = 'none';
     }
     /**
-     * 
+     * Return name to class Game
      * @param input 
      */
     private __saveName(input: HTMLInputElement ) {
-        this.game.newConection(input.value);
+        if(input.value !==  ""){
+            this.game.newConection(input.value);
+        }else{
+            this.game.newConection("Usuário Qualquer! (No Name)");
+        }       
         this.close();
     }
     /**

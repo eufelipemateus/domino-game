@@ -1,13 +1,13 @@
 import * as express from 'express';
 import { createServer, Server } from 'http';
-import * as socketIo from 'socket.io';
+import socketIo = require('socket.io');
 import domino from './Domino';
 
 class App {
     public app: express.Application;
     public server: Server;
     public debug= false;
-    private io: SocketIO.Server;
+    private io: socketIo.Server;
 
     constructor() {
         this.routes();
@@ -15,17 +15,24 @@ class App {
         this.listen();
         this.runtime();
     }
-
+    /**
+     *  Http ROutes
+     */
     private routes() {
         this.app = express();
         this.app.use(express.static('./public'));
     }
-
+    /***
+     *  Socket http
+     */
     private sockets(): void {
         this.server = createServer(this.app);
-        this.io = socketIo(this.server);
+        this.io = new socketIo.Server(this.server);
     }
 
+    /**
+     *  Listen the connection
+     */
     private listen(): void {
 
         this.io.on('connection', (socket: any) => {
@@ -86,6 +93,10 @@ class App {
             });
         });
     }
+
+    /**
+     *  Runtime
+     */
     private runtime() {
         setInterval(() => {
             this.io.emit('INFO', {
@@ -94,7 +105,7 @@ class App {
                 CardsInHand: domino.CartasEmMaos.length,
             });
             if (domino.Gamers.length == 4) {
-                domino.Gamers.forEach((socket, index) => {
+                domino.Gamers.map((socket, index) => {
                     if (socket.token) {
                         this.io.emit('TOKEN', index);
                     }
@@ -102,11 +113,15 @@ class App {
             }
         }, 1000);
     }
+    /**
+     *  Reboot the Game
+     * @param msg 
+     */
     private reboot(msg) {
         domino.CartasUsadas = Array();
         domino.CartasEmMaos = Array();
 
-        domino.Gamers.forEach((client, index) => {
+        domino.Gamers.map((client, index) => {
             client.emit('REBOOT', msg);
             const cards = domino.emabaralhar();
             client.cards = cards;
