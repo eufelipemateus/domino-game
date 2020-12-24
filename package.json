@@ -65,7 +65,7 @@
 		"@types/socket.io": "^2.1.12",
 		"jsmin": "^1.0.1",
 		"lint-staged": "9.5.0",
-		"nodemon": "^1.19.4",
+		"nodemon": "^2.0.6",
 		"ts-node": "3.3.0",
 		"tsconfig-paths": "3.9.0",
 		"tslint": "5.7.0",
