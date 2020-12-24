@@ -69,7 +69,7 @@ System.register([], function (exports_1, context_1) {
                     this.modal.style.display = 'none';
                 }
                 /**
-                 *
+                 * Return name to class Game
                  * @param input
                  */
                 __saveName(input) {

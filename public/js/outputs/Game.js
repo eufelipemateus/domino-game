@@ -17,8 +17,8 @@ System.register(["./Modal.js"], function (exports_1, context_1) {
                     this.modal = new Modal_js_1.Modal(this);
                 }
                 newCard(nums, horizontal = false, invertido = false) {
-                    const n1 = nums[0];
-                    const n2 = nums[1];
+                    const n1 = nums.num1;
+                    const n2 = nums.num2;
                     const dcard = document.createElement('div');
                     dcard.classList.add('card');
                     dcard.setAttribute('value', nums);
@@ -43,7 +43,7 @@ System.register(["./Modal.js"], function (exports_1, context_1) {
                     return dcard;
                 }
                 isDouble(nums) {
-                    if (nums[0] == nums[1]) {
+                    if (nums.num1 == nums.num2) {
                         return true;
                     }
                     else {
@@ -51,7 +51,7 @@ System.register(["./Modal.js"], function (exports_1, context_1) {
                     }
                 }
                 isInverted(nums) {
-                    if (nums[1] == this.Ultimo && (nums[1] != nums[0])) {
+                    if (nums.num2 == this.Ultimo && (nums.num2 != nums.num1)) {
                         return true;
                     }
                     else {
@@ -59,7 +59,7 @@ System.register(["./Modal.js"], function (exports_1, context_1) {
                     }
                 }
                 isAllowed(nums, num) {
-                    if ((num == this.Ultimo) || ((nums[0] == 6) && (nums[1] == 6))) {
+                    if ((num == this.Ultimo) || ((nums.num1 == 6) && (nums.num2 == 6))) {
                         return true;
                     }
                     else {
@@ -68,11 +68,12 @@ System.register(["./Modal.js"], function (exports_1, context_1) {
                 }
                 changeUltimo(nums) {
                     let ultimo = this.Ultimo;
-                    nums.forEach((num) => {
-                        if (num != ultimo && num != this.Ultimo) {
-                            ultimo = num;
-                        }
-                    });
+                    if (nums.num1 != ultimo && nums.num1 != this.Ultimo) {
+                        ultimo = nums.num1;
+                    }
+                    if (nums.num2 != ultimo && nums.num2 != this.Ultimo) {
+                        ultimo = nums.num2;
+                    }
                     this.Ultimo = ultimo;
                 }
                 OpenToken() {
@@ -101,7 +102,7 @@ System.register(["./Modal.js"], function (exports_1, context_1) {
                             dice.classList.add('hand');
                             dice.addEventListener('click', (e) => {
                                 // Aqui entra Função Pra selecionar Peça no tabuleiro
-                                if (!this.isAllowed(nums, nums[index])) {
+                                if (!this.isAllowed(nums, dice.getAttribute('value'))) {
                                     return false;
                                 }
                                 const clone = e.srcElement.parentElement.cloneNode(true);
@@ -119,7 +120,7 @@ System.register(["./Modal.js"], function (exports_1, context_1) {
                                 this.socket.emit('gaming', { value: nums, last: this.Ultimo });
                             });
                             dice.addEventListener('mouseover', (e) => {
-                                if (this.isAllowed(nums, nums[index])) {
+                                if (this.isAllowed(nums, dice.getAttribute('value'))) {
                                     e.srcElement.classList.add('hoverPossible');
                                 }
                                 else {
@@ -163,15 +164,7 @@ System.register(["./Modal.js"], function (exports_1, context_1) {
                         this.Jogador = msg.gamer;
                     });
                     this.socket.on('MOVIMENT', (msg) => {
-                        let horizontal = false;
-                        let invertido = false;
-                        if (this.isDouble(msg.value)) {
-                            horizontal = true;
-                        }
-                        if (this.isInverted(msg.value)) {
-                            invertido = true;
-                        }
-                        const card = this.newCard(msg.value, horizontal, invertido);
+                        const card = this.newCard(msg.value, this.isDouble(msg.value), this.isInverted(msg.value));
                         document.getElementById('tabuleiro').appendChild(card);
                         this.downTabScroll();
                         this.Ultimo = msg.last;
@@ -188,9 +181,9 @@ System.register(["./Modal.js"], function (exports_1, context_1) {
                         this.Reiniciar();
                     });
                     this.socket.on('INFO', (msg) => {
-                        document.getElementById('gamers').innerHTML = msg.Gamers;
-                        document.getElementById('tab').innerHTML = msg.Tab;
-                        document.getElementById('cards_in_hand').innerHTML = msg.CardsInHand;
+                        document.getElementById('gamers').innerHTML = msg.gamers;
+                        document.getElementById('tab').innerHTML = msg.tab;
+                        document.getElementById('cards_in_hand').innerHTML = msg.cardsInHand;
                     });
                 }
             };

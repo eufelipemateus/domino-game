@@ -1,13 +1,15 @@
 import * as express from 'express';
 import { createServer, Server } from 'http';
+import { Socket } from 'socket.io';
 import socketIo = require('socket.io');
 import domino from './Domino';
-
+import { Gamer } from './interfaces/Gamer.interface';
+import {Gaming} from './interfaces/Gaming.interface';
 class App {
     public app: express.Application;
     public server: Server;
     public debug= false;
-    private io: socketIo.Server;
+    private io: socketIo.Server
 
     constructor() {
         this.routes();
@@ -16,14 +18,14 @@ class App {
         this.runtime();
     }
     /**
-     *  Http ROutes
+     * Http ROutes
      */
     private routes() {
         this.app = express();
         this.app.use(express.static('./public'));
     }
-    /***
-     *  Socket http
+    /**
+     * Socket http
      */
     private sockets(): void {
         this.server = createServer(this.app);
@@ -31,82 +33,99 @@ class App {
     }
 
     /**
-     *  Listen the connection
+     * Listen the connection
      */
     private listen(): void {
 
-        this.io.on('connection', (socket: any) => {
-            if (this.debug) { console.info('A user connected!'); }
+        this.io.on('connection', (socket: Socket) => {
 
-            socket.on('NEW CONNECTION', (msg) => {
+            if (this.debug) {
+                console.info('A user connected!');
+            }
+
+            socket.on('NEW CONNECTION', (msg: string) => {
                 const cards = domino.emabaralhar();
-                socket.cards = cards;
-                socket.name = msg;
-                socket.token = domino.primeiraJogada(cards);
-                socket.emit('HAND', cards);
-                domino.Gamers.push(socket);
+                const gamer: Gamer = {
+                    name: msg,
+                    socket,
+                    cards,
+                    token: domino.primeiraJogada(cards),
+                }
 
-                domino.Gamers.map((s, index) => {
+                socket.emit('HAND', cards);
+                domino.gamers.push(gamer);
+
+                domino.gamers.map((s, index) => {
                     socket.emit('GAMER NAME', {gamer: index, name: s.name});
                 });
             });
-            socket.on('gaming', (msg) => {
-                socket.cards.splice(domino.Cartas.indexOf(msg.value), 1);
-                domino.CartasUsadas.push(msg.value);
-                domino.Ultimo = msg.last;
+            socket.on('gaming', (msg: Gaming) => {
+                const gamerIndex:number = domino.indexOfGamers(socket);
 
-                if (this.debug) { console.info('User play!', msg.value); }
+                domino.gamers[gamerIndex].cards.splice(domino.cartas.indexOf(msg.value), 1);
+                domino.cartasUsadas.push(msg.value);
+                domino.ultimo = msg.last;
 
-                socket.token = false;
+                if (this.debug) {
+                    console.info('User play!', msg.value);
+                }
+
+                domino.gamers[gamerIndex].token = false;
 
                 if ((domino.indexOfGamers(socket) + 1) < 4) {
-                    domino.Gamers[domino.indexOfGamers(socket) + 1].token = true;
-                }else {
-                    domino.Gamers[0].token = true;
+                    domino.gamers[gamerIndex + 1].token = true;
+                } else {
+                    domino.gamers[0].token = true;
                 }
                 socket.broadcast.emit('MOVIMENT', msg);
-                domino.removeGamerCard(socket, msg.value);
-                if (domino.isGamerWinner(socket)) {
-                    this.reboot('O Jogador ' + (domino.indexOfGamers(socket) + 1) +  ' -  "' + domino.Gamers[domino.indexOfGamers(socket)].name + '" Venceu!');
+                domino.removeGamerCard(domino.gamers[gamerIndex], msg.value);
+                if (domino.isGamerWinner(domino.gamers[gamerIndex])) {
+                    this.reboot('O Jogador ' + (gamerIndex +1) +  ' -  "' + domino.gamers[gamerIndex].name + '" Venceu!');
                     if (this.debug) {
                         console.info('User Winner!');
                     }
                 }
-                domino.removeCardInHand(socket, msg.value);
+                domino.removeCardInHand( msg.value);
             });
             socket.on('PASS', (msg) => {
-                if (socket.token) {
-                    socket.token = false;
-                    if ((domino.indexOfGamers(socket) + 1) < 4) {
-                        domino.Gamers[domino.indexOfGamers(socket) + 1].token = true;
+                const gamerIndex:number = domino.indexOfGamers(socket);
+
+                if (domino.gamers[gamerIndex].token) {
+                    domino.gamers[gamerIndex].token = false;
+                    if ((gamerIndex + 1) < 4) {
+                        domino.gamers[gamerIndex + 1].token = true;
                     } else {
-                         domino.Gamers[0].token = true;
+                         domino.gamers[0].token = true;
                     }
-                    if (this.debug) { console.info('User Pass!'); }
+                    if (this.debug) {
+                        console.info('User Pass!');
+                    }
                 }
             });
             socket.on('disconnect', () => {
-                const gamer = domino.Gamers.indexOf(socket);
-                domino.Gamers.splice(gamer, 1);
-                if (this.debug) { console.info('User disconnected!'); }
-                this.reboot(`O Jogador ${(gamer) + 1} desconectou! ` );
+                const gamerIndex:number = domino.indexOfGamers(socket);
+                domino.gamers.splice(gamerIndex, 1);
+                if (this.debug) {
+                    console.info('User disconnected!');
+                }
+                this.reboot(`O Jogador ${(gamerIndex) + 1} desconectou! ` );
             });
         });
     }
 
     /**
-     *  Runtime
+     * Runtime
      */
     private runtime() {
         setInterval(() => {
             this.io.emit('INFO', {
-                Tab: domino.CartasUsadas.length,
-                Gamers: domino.Gamers.length,
-                CardsInHand: domino.CartasEmMaos.length,
+                'tab': domino.cartasUsadas.length,
+                'gamers': domino.gamers.length,
+                'cardsInHand': domino.cartasEmMaos.length,
             });
-            if (domino.Gamers.length == 4) {
-                domino.Gamers.map((socket, index) => {
-                    if (socket.token) {
+            if (domino.gamers.length == 4) {
+                domino.gamers.map((gamer, index) => {
+                    if (gamer.token) {
                         this.io.emit('TOKEN', index);
                     }
                 });
@@ -114,22 +133,25 @@ class App {
         }, 1000);
     }
     /**
-     *  Reboot the Game
-     * @param msg 
+     * Reboot the Game
+     *
+     * @param msg
      */
     private reboot(msg) {
-        domino.CartasUsadas = Array();
-        domino.CartasEmMaos = Array();
+        domino.cartasUsadas = [];
+        domino.cartasEmMaos =  [];
 
-        domino.Gamers.map((client, index) => {
-            client.emit('REBOOT', msg);
+        domino.gamers.map((gamer, index) => {
+            gamer.socket.emit('REBOOT', msg);
             const cards = domino.emabaralhar();
-            client.cards = cards;
-            client.token = domino.primeiraJogada(cards);
-            client.emit('HAND', cards);
-            client.emit('GAMER NAME', {gamer: index, name: client.name});
+            gamer.cards = cards;
+            gamer.token = domino.primeiraJogada(cards);
+            gamer.socket.emit('HAND', cards);
+            gamer.socket.emit('GAMER NAME', {gamer: index, name: gamer.name});
         });
-        if (this.debug) { console.info('Game Reboot!'); }
+        if (this.debug) {
+ console.info('Game Reboot!');
+}
     }
 }
 

@@ -15,8 +15,8 @@ export class Game {
     }
 
     private newCard(nums, horizontal= false, invertido= false) {
-        const n1 = nums[0];
-        const n2 = nums[1];
+        const n1 = nums.num1;
+        const n2 = nums.num2;
         const dcard = document.createElement('div');
         dcard.classList.add('card');
         dcard.setAttribute('value', nums);
@@ -42,22 +42,23 @@ export class Game {
     }
 
     private isDouble(nums) {
-        if (nums[0] == nums[1]) {  return true; }else { return false; }
+        if (nums.num1 == nums.num2) {  return true; } else { return false; }
     }
     private isInverted(nums) {
-        if (nums[1] == this.Ultimo && (nums[1] != nums[0])) {  return true; }else { return false; }
+        if (nums.num2 == this.Ultimo && (nums.num2 != nums.num1)) {  return true; } else { return false; }
     }
     private isAllowed(nums, num) {
-            if ((num == this.Ultimo) || ((nums[0] == 6) && (nums[1] == 6))) {return true ; } else { return false; }
+        if ((num == this.Ultimo) || ((nums.num1 == 6) && (nums.num2 == 6))) {return true ; } else { return false; }
     }
     private changeUltimo(nums) {
         let ultimo = this.Ultimo;
-        nums.forEach((num) => {
-            if (num != ultimo && num != this.Ultimo) {
-                ultimo = num;
-            }
-        });
-        this.Ultimo = ultimo;
+        if (nums.num1 != ultimo && nums.num1 != this.Ultimo) {
+             ultimo= nums.num1;
+        }
+        if (nums.num2 != ultimo && nums.num2 != this.Ultimo) {
+            ultimo = nums.num2;
+        }
+        this.Ultimo = ultimo
     }
     private OpenToken() {
         document.getElementById('pass').classList.add('active');
@@ -80,7 +81,7 @@ export class Game {
     }
 
     private createHand(Hand) {
-        for (const nums of Hand){
+        for (const nums of Hand) {
             const card = this.newCard(nums, false);
             const dices = card.querySelectorAll('.dice');
             dices.forEach((dice, index) => {
@@ -88,7 +89,7 @@ export class Game {
                     dice.addEventListener('click', (e) => {
                         // Aqui entra Função Pra selecionar Peça no tabuleiro
 
-                        if (!this.isAllowed(nums, nums[index])) { return false; }
+                        if (!this.isAllowed(nums, dice.getAttribute('value'))) { return false; }
                         const clone = ( e.srcElement as Element).parentElement.cloneNode(true);
 
                         if (this.isDouble(nums)) { ( clone as Element).classList.add('R90'); }
@@ -106,9 +107,9 @@ export class Game {
                     });
 
                     dice.addEventListener('mouseover', (e) => {
-                        if (this.isAllowed(nums, nums[index])) {
+                        if (this.isAllowed(nums, dice.getAttribute('value'))) {
                             ( e.srcElement as Element).classList.add('hoverPossible');
-                        }else {
+                        } else {
                             ( e.srcElement as Element).classList.add('hoverImPossible');
                         }
                     });
@@ -131,7 +132,7 @@ export class Game {
         document.getElementById('status').innerHTML = 'Aguardando jogadores...';
     }
 
-    public newConection(name: string){
+    public newConection(name: string) {
         this.socket.emit('NEW CONNECTION', name);
     }
     /*** Listen connections  ***/
@@ -150,14 +151,7 @@ export class Game {
             this.Jogador = msg.gamer;
         });
         this.socket.on('MOVIMENT', (msg) => {
-            let horizontal = false;
-            let invertido = false;
-
-            if (this.isDouble(msg.value)) {  horizontal = true; }
-            if (this.isInverted(msg.value)) {  invertido = true; }
-
-            const card  = this.newCard(msg.value, horizontal, invertido);
-
+            const card  = this.newCard(msg.value, this.isDouble(msg.value), this.isInverted(msg.value));
             document.getElementById('tabuleiro').appendChild(card);
             this.downTabScroll();
             this.Ultimo = msg.last;
@@ -174,9 +168,9 @@ export class Game {
             this.Reiniciar();
         });
         this.socket.on('INFO', (msg) => {
-            document.getElementById('gamers').innerHTML = msg.Gamers;
-            document.getElementById('tab').innerHTML = msg.Tab;
-            document.getElementById('cards_in_hand').innerHTML = msg.CardsInHand;
+            document.getElementById('gamers').innerHTML = msg.gamers;
+            document.getElementById('tab').innerHTML = msg.tab;
+            document.getElementById('cards_in_hand').innerHTML = msg.cardsInHand;
         });
     }
 }

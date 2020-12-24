@@ -1,58 +1,63 @@
+import { Socket } from 'socket.io';
+import {Card} from './interfaces/Card.interface';
+import { Gamer } from './interfaces/Gamer.interface';
 class Domino {
 
-    public Gamers = Array();
-    public CartasEmMaos = Array();
-    public CartasUsadas = Array();
-    public Cartas = Array();
-    public Ultimo;
+    public gamers:Gamer[] = [];
+    public cartasEmMaos:Card[] = [];
+    public cartasUsadas:Card[] = [];
+    public cartas:Card[] = [];
+    public ultimo: any;
 
     constructor() {
         this.daCartas();
     }
 
     public  emabaralhar() {
-        const MinhaMao = Array();
-        let rand;
-        let index;
+        const minhaMao: Card[] = [];
+        let rand: Card;
+        let index: number;
 
         for (index = 0; index < 7; index++) {
             do {
-                rand = this.Cartas[Math.floor((Math.random() * 28))];
-            } while (this.CartasEmMaos.indexOf(rand) !== -1);
+                rand = this.cartas[Math.floor((Math.random() * 28))];
+            } while (this.cartasEmMaos.indexOf(rand) !== -1);
 
-            this.CartasEmMaos.push(rand);
-            MinhaMao.push(rand);
+            this.cartasEmMaos.push(rand);
+            minhaMao.push(rand);
         }
-        return MinhaMao;
+        return minhaMao;
     }
 
-    public  primeiraJogada(card) {
-        if (card.indexOf(this.Cartas[27]) > -1) {
+    public  primeiraJogada(card: Card[]) {
+        if (card.indexOf(this.cartas[27]) > -1) {
             return true;
         } else {
             return false;
         }
     }
 
-    public indexOfGamers(socket) {
-        return this.Gamers.indexOf(socket);
+    public indexOfGamers(socket: Socket) {
+        return this.gamers.findIndex((gamer)=>{
+            return (socket === gamer.socket)
+        });
     }
 
-    public removeGamerCard(gamer, card) {
+    public removeGamerCard(gamer: Gamer, card: Card) {
         const mIndex = this.indexOfGamerCards(gamer, card);
         if ( mIndex > -1) {
             gamer.cards.splice(mIndex, 1);
         }
     }
 
-    public isGamerWinner(gamer) {
+    public isGamerWinner(gamer: Gamer) {
         return (gamer.cards.length == 0);
     }
 
-    public removeCardInHand(gamer, card) {
+    public removeCardInHand(card: any) {
         const mIndex = this.indexOfHandCards(card);
         if (mIndex > -1) {
-            gamer.CartasEmMaos.splice(mIndex, 1);
+            this.cartasEmMaos.splice(mIndex, 1);
         }
     }
 
@@ -61,22 +66,22 @@ class Domino {
         for (let i = 0; i < 7; i++) {
             for (let p = 0; p < 7; p++) {
                 if ( p >= i) {
-                    this.Cartas[index++] = [i, p];
+                    this.cartas[index++] = {num1:i, num2:p};
                 }
             }
         }
     }
 
-    private  indexOfHandCards(card) {
-        return this.CartasEmMaos.findIndex(function(element, index){
-            return  this.card === element;
-        }, card);
+    private  indexOfHandCards(card: any) {
+        return this.cartasEmMaos.findIndex((element: Card)=> {
+            return  card === element;
+        });
     }
 
-    private indexOfGamerCards(gamer, card) {
-        return gamer.cards.findIndex(function(element, index) {
-            return  this.card === element;
-        }, card);
+    private indexOfGamerCards(gamer: Gamer, card: Card) {
+        return gamer.cards.findIndex((element: Card)=> {
+            return (card === element);
+        });
     }
 }
 
