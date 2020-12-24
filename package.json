@@ -7,14 +7,15 @@
 		"node": "10.19.0"
 	},
 	"scripts": {
-		"build": "eslint && tsc  && npm run minify",
+		"build": "eslint && tsc  &&  npm run minify && npm run compile-front",
 		"serve": "nodemon --watch \"src/**/*\" -e ts --exec \"ts-node -r tsconfig-paths/register\" ./src/Server.ts",
 		"start": "node ./._build/Server.js",
 		"pm2:start": "pm2 start ./._build/Server.js --name dominio-felipefm32",
 		"lint:ts:base": "tslint --project tsconfig.json --config tslint.json",
 		"lint:ts": "npm run lint:ts:base \"src/**/*.ts\"",
-		"minify": "jsmin -o public/js/outputs/output.js  public/js/outputs/Game.js  public/js/outputs/Modal.js  public/js/outputs/App.js ",
-		"compile-front": "tsc -p public/tsconfig.json"
+		"minify": "jsmin -o ._build/build.js ._build/* ",
+		"compile-front": "tsc -p public/tsconfig.json",
+		"postinstall": "npm run build"
 	},
 	"repository": {
 		"type": "git",
@@ -41,26 +42,25 @@
 		"jogos",
 		"geek",
 		"dom-html",
-        "dev-junior",
+		"dev-junior",
         "runtime",
-        "brazil",
-        "gme",
-        "jogo-tabuleiro",
-        "fun",
-		"full-stack-developer"
+        "DOM-Element",
+		"brazil",
+		"gme",
+		"jogo-tabuleiro",
+		"fun",
+        "full-stack-developer",
+        "Dom"
+
 	],
 	"author": {
 		"name": "Felipe Mateus",
 		"email": "eu@felipemateus.com",
 		"url": "https://eufelipemateus.com/"
 	},
-	"license": "CC",
+	"license": "CC-BY-NC-4.0",
 	"dependencies": {
-		"@types/socket.io-client": "^1.4.34",
-		"@typescript-eslint/eslint-plugin": "^4.11.0",
 		"dotenv": "8.2.0",
-		"eslint": "^7.16.0",
-		"eslint-plugin-import": "^2.22.1",
 		"express": "^4.16.4",
 		"express-session": "~1.15.1",
 		"socket.io": "^3.0.4",
@@ -69,9 +69,14 @@
 	},
 	"devDependencies": {
 		"@types/dotenv": "8.2.0",
-		"@types/node": "^7.10.14",
+		"@types/express": "^4.17.9",
+		"@types/node": "^14.14.16",
 		"@types/socket.io": "^2.1.12",
+		"@types/socket.io-client": "^1.4.34",
+		"@typescript-eslint/eslint-plugin": "^4.11.0",
 		"@typescript-eslint/parser": "^4.11.0",
+		"eslint": "^7.16.0",
+		"eslint-plugin-import": "^2.22.1",
 		"eslint-plugin-jsdoc": "^30.7.9",
 		"eslint-plugin-prefer-arrow": "^1.2.2",
 		"jsmin": "^1.0.1",

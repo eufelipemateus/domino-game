@@ -5,6 +5,7 @@ import socketIo = require('socket.io');
 import domino from './Domino';
 import { Gamer } from './interfaces/Gamer.interface';
 import {Gaming} from './interfaces/Gaming.interface';
+
 class App {
     public app: express.Application;
     public server: Server;
@@ -87,7 +88,7 @@ class App {
                 }
                 domino.removeCardInHand( msg.value);
             });
-            socket.on('PASS', (msg) => {
+            socket.on('PASS', () => {
                 const gamerIndex:number = domino.indexOfGamers(socket);
 
                 if (domino.gamers[gamerIndex].token) {
@@ -150,8 +151,8 @@ class App {
             gamer.socket.emit('GAMER NAME', {gamer: index, name: gamer.name});
         });
         if (this.debug) {
- console.info('Game Reboot!');
-}
+            console.info('Game Reboot!');
+        }
     }
 }
 
