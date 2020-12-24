@@ -18,7 +18,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/eufelipemateus/NodeDomino.git"
+		"url": "git+https://github.com/eufelipemateus/domino-game.git"
 	},
 	"keywords": [
 		"Domino",
@@ -41,7 +41,12 @@
 		"jogos",
 		"geek",
 		"dom-html",
-		"dev-junior",
+        "dev-junior",
+        "runtime",
+        "brazil",
+        "gme",
+        "jogo-tabuleiro",
+        "fun",
 		"full-stack-developer"
 	],
 	"author": {
@@ -77,7 +82,7 @@
 		"typescript": "^4.1.3"
 	},
 	"bugs": {
-		"url": "https://github.com/eufelipemateus/NodeDomino/issues"
+		"url": "https://github.com/eufelipemateus/domino-game/issues"
 	},
 	"homepage": "https://domino.felipemateus.com"
 }

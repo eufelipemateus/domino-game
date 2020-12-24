@@ -7,7 +7,7 @@ domino-game é jogo de dominó online feito em html5, typescript, node.js e sock
   
   
 
-[![Screenshot](https://felipemateus.com/wp-content/uploads/2020/12/domino_2020-1536x864.png.webp "screenshot")](https://felipemateus.com/blog/2017/06/domino  "screenshot")
+[![Screenshot](https://felipemateus.com/wp-content/uploads/2020/12/domino_2020-1.png "screenshot")](https://felipemateus.com/blog/2017/06/domino  "screenshot")
 
   
   
@@ -19,7 +19,7 @@ domino-game é jogo de dominó online feito em html5, typescript, node.js e sock
 
 ```bash
 
-git clone https://github.com/eufelipemateus/NodeDomino.git
+git clone https://github.com/eufelipemateus/domino-game.git
 
 ```
 
@@ -27,7 +27,7 @@ git clone https://github.com/eufelipemateus/NodeDomino.git
 
 ```bash
 
-cd NodeDomino
+cd domino-game
 
 ```
 

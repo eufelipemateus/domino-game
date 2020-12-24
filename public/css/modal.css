@@ -12,15 +12,16 @@
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    align-items: center;
+    justify-content: center;
   }
   
   /* Modal Content/Box */
 .modal .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
+    margin: 10% auto;
     border: 1px solid #888;
-    width: 80%; 
+    width: 20%; 
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     animation-name: animatetop;
     animation-duration: 0.4s
@@ -35,7 +36,12 @@
   }
   
  /* Modal Body */
-.modal .modal-body {padding: 27px 160px;}
+.modal .modal-body {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 /* Modal Footer */
 .modal .modal-footer {
@@ -43,6 +49,9 @@
     background-color: #3492d1;
     color: white;
     text-align: right ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
   /* The Close Button */
@@ -67,3 +76,27 @@
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
   }
+
+
+.button-confirmar {
+	background-color:#44c767;
+	border-radius:5px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.button-confirmar:hover {
+	background-color:#5cbf2a;
+}
+.button-confirmar:active {
+	position:relative;
+	top:1px;
+}
+
+        

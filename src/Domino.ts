@@ -13,7 +13,10 @@ class Domino {
         this.daCartas();
     }
 
-    public  emabaralhar() {
+    /**
+     * Embaralhar cartas
+     */
+    public  emabaralhar():Card[] {
         const minhaMao: Card[] = [];
         let rand: Card;
         let index: number;
@@ -29,7 +32,12 @@ class Domino {
         return minhaMao;
     }
 
-    public  primeiraJogada(card: Card[]) {
+    /**
+     * Testar se é possivel fazer primeira jogadar
+     *
+     * @param card
+     */
+    public  primeiraJogada(card: Card[]):boolean {
         if (card.indexOf(this.cartas[27]) > -1) {
             return true;
         } else {
@@ -37,30 +45,52 @@ class Domino {
         }
     }
 
-    public indexOfGamers(socket: Socket) {
-        return this.gamers.findIndex((gamer)=>{
+    /**
+     * Pegar o numero do index do array de gamers.
+     *
+     * @param socket {Socket}
+     */
+    public indexOfGamers(socket: Socket):number {
+        return this.gamers.findIndex((gamer)=> {
             return (socket === gamer.socket)
         });
     }
 
+    /**
+     * Remover card from Array gamer
+     *
+     * @param gamer {Gamer}
+     * @param card {Card}
+     */
     public removeGamerCard(gamer: Gamer, card: Card) {
         const mIndex = this.indexOfGamerCards(gamer, card);
         if ( mIndex > -1) {
             gamer.cards.splice(mIndex, 1);
         }
     }
-
-    public isGamerWinner(gamer: Gamer) {
+    /**
+     * Verificar se o jogador é vencedor
+     *
+     * @param gamer {Gamer}
+     */
+    public isGamerWinner(gamer: Gamer):boolean {
         return (gamer.cards.length == 0);
     }
 
-    public removeCardInHand(card: any) {
+    /**
+     * Remover card from catasEmMaos
+     *
+     * @param card {Card}
+     */
+    public removeCardInHand(card: Card) {
         const mIndex = this.indexOfHandCards(card);
         if (mIndex > -1) {
             this.cartasEmMaos.splice(mIndex, 1);
         }
     }
-
+    /**
+     * Distribuir cartas para os gamers.
+     */
     private  daCartas() {
         let index = 0;
         for (let i = 0; i < 7; i++) {
@@ -71,13 +101,23 @@ class Domino {
             }
         }
     }
-
-    private  indexOfHandCards(card: any) {
+    /**
+     * Retorna o index da carda no cartasEmMaos
+     *
+     * @param card {Card}
+     */
+    private  indexOfHandCards(card: Card) {
         return this.cartasEmMaos.findIndex((element: Card)=> {
             return  card === element;
         });
     }
 
+    /**
+     * Retornar Index card in gamers list
+     *
+     * @param gamer {Gamer}
+     * @param card  {Card}
+     */
     private indexOfGamerCards(gamer: Gamer, card: Card) {
         return gamer.cards.findIndex((element: Card)=> {
             return (card === element);

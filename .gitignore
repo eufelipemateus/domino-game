@@ -8,4 +8,3 @@ node_modules/
 
 # build files
 ._build
-public/js/Game.min.js

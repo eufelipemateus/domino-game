@@ -20,10 +20,10 @@ System.register([], function (exports_1, context_1) {
                 __create() {
                     this.modal = document.createElement('div');
                     this.modal.classList.add('modal');
-                    let modalContent = document.createElement('div');
+                    const modalContent = document.createElement('div');
                     modalContent.classList.add('modal-content');
                     // Header
-                    var modalHeader = document.createElement('div');
+                    const modalHeader = document.createElement('div');
                     modalHeader.classList.add('modal-header');
                     /*let modalclose = document.createElement('span');
                     modalclose.classList.add('close');
@@ -31,36 +31,38 @@ System.register([], function (exports_1, context_1) {
             
                     this.closeButton = modalclose;
                     modalHeader.appendChild(modalclose);*/
-                    let title = document.createElement('h2');
+                    const title = document.createElement('h2');
                     title.innerHTML = 'Put a Nickname';
                     modalHeader.appendChild(title);
                     modalContent.appendChild(modalHeader);
-                    //Body
-                    let modalBody = document.createElement('div');
+                    // Body
+                    const modalBody = document.createElement('div');
                     modalBody.classList.add('modal-body');
-                    let label = document.createElement('label');
-                    label.innerHTML = "Name:";
+                    const label = document.createElement('label');
+                    label.innerHTML = 'Name:';
                     modalBody.appendChild(label);
                     this.inputName = document.createElement('input');
                     this.inputName.setAttribute('placeholder', 'João Inacio');
                     modalBody.appendChild(this.inputName);
                     modalContent.appendChild(modalBody);
-                    //Footer
-                    let modalFooter = document.createElement('div');
+                    // Footer
+                    const modalFooter = document.createElement('div');
                     modalFooter.classList.add('modal-footer');
                     this.modalButton = document.createElement('button');
-                    this.modalButton.innerHTML = "Confirmar Nome";
+                    this.modalButton.classList.add('button-confirmar');
+                    this.modalButton.innerHTML = 'Entrar';
                     modalFooter.appendChild(this.modalButton);
                     modalContent.appendChild(modalFooter);
                     this.modal.appendChild(modalContent);
-                    document.getElementsByTagName("body")[0].append(this.modal);
+                    document.getElementsByTagName('body')[0].append(this.modal);
                     return this.modal;
                 }
                 /**
                  *  Abrir modal
                  */
                 open() {
-                    this.modal.style.display = "block";
+                    this.modal.style.display = 'flex';
+                    this.inputName.focus();
                 }
                 /**
                  *  Fechar modal
@@ -73,11 +75,11 @@ System.register([], function (exports_1, context_1) {
                  * @param input
                  */
                 __saveName(input) {
-                    if (input.value !== "") {
+                    if (input.value !== '') {
                         this.game.newConection(input.value);
                     }
                     else {
-                        this.game.newConection("Usuário Qualquer! (No Name)");
+                        this.game.newConection('Usuário Qualquer! (No Name)');
                     }
                     this.close();
                 }
@@ -85,10 +87,10 @@ System.register([], function (exports_1, context_1) {
                  *  __Listen
                  */
                 __Listen() {
-                    this.modalButton.addEventListener("click", () => {
+                    this.modalButton.addEventListener('click', () => {
                         this.__saveName(this.inputName);
                     }, false);
-                    this.inputName.addEventListener("keypress", (e) => {
+                    this.inputName.addEventListener('keypress', (e) => {
                         if (e.key === 'Enter') {
                             this.__saveName(this.inputName);
                         }
