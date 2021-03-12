@@ -10,7 +10,7 @@ export class Game {
 
     constructor(io) {
         this.socket = io();
-        this.listen();
+        this.sizeScreen();
         this.modal = new Modal(this);
     }
 
@@ -173,4 +173,13 @@ export class Game {
             document.getElementById('cards_in_hand').innerHTML = msg.cardsInHand;
         });
     }
+
+    private  sizeScreen() {
+        if (window.screen.width >= 1024 && window.screen.height >= 768) {
+             this.listen();
+        }else{
+            document.getElementById("game").style.display = 'none';
+            document.getElementById('mobile_message').style.display = "flex";
+        }
+    } 
 }

@@ -1,5 +1,5 @@
 body{
-	min-width:1024px !important;
+	
 }
 .card{
     text-align:center;
@@ -146,4 +146,21 @@ body{
 	height:162px;
 	display:inline-block;
 	float:right;
+}
+
+#mobile_message{
+    background-color: #FFF;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#mobile_message h1{
+    font-size: 1.5em;
 }
