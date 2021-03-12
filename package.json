@@ -4,7 +4,7 @@
 	"description": "Domino is a game multiplayer made in node socket.io, typescript, node.js and html5.",
 	"main": "./._build/Server.js",
 	"engines": {
-		"node": "10.19.0"
+		"node": "10.24.0"
 	},
 	"scripts": {
 		"build": "eslint && tsc  &&  npm run minify && npm run compile-front",
