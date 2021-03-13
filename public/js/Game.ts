@@ -178,8 +178,8 @@ export class Game {
         if (window.screen.width >= 1024 && window.screen.height >= 768) {
              this.listen();
         }else{
-            document.getElementById("game").style.display = 'none';
-            document.getElementById('mobile_message').style.display = "flex";
+            document.getElementById("game").classList.add("hide");
+            document.getElementById('mobile_message').classList.remove("hide");
         }
     } 
 }

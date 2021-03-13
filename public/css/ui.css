@@ -1,6 +1,11 @@
 body{
 	
 }
+
+.hide{
+    display: none !important;
+}
+
 .card{
     text-align:center;
 	display:block;
@@ -156,7 +161,7 @@ body{
     top: 0;
     overflow: hidden;
     position: fixed;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
