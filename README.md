@@ -8,7 +8,7 @@ domino-game é jogo de dominó online feito em html5, typescript, node.js e sock
   
   
 
-[![Screenshot Dominó](https://felipemateus.com/wp-content/uploads/2020/12/domino_2020-1.png "screenshot")](https://eufelipemateus.com/blog/2017/06/domino  "screenshot")
+[![Screenshot Jogo Dominó](https://felipemateus.com/wp-content/uploads/2020/12/domino_2020-1.png "Screenshot Jogo Dominó")](https://eufelipemateus.com/blog/2017/06/domino  "Screenshot Jogo Dominó")
 
   
   
