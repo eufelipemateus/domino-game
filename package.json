@@ -61,10 +61,10 @@
 	"dependencies": {
 		"dotenv": "8.6.0",
 		"express": "^4.16.4",
-		"express-session": "~1.17.1",
-		"socket.io": "^4.0.1",
+		"express-session": "~1.17.2",
+		"socket.io": "^4.1.2",
 		"socket.io-client": "^4.1.2",
-		"systemjs": "^6.8.3"
+		"systemjs": "^6.9.0"
 	},
 	"devDependencies": {
 		"@types/dotenv": "8.2.0",
