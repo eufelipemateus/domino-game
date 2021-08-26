@@ -75,20 +75,19 @@
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.9.0/system.min.js" integrity="sha512-wMACYsBj3dopATm2rDkcUeZuIzgOYcTQSfHXB+U7DrX5mmNuObPYNiQDOtctXNmw1md396stvkzSjU4hgljU8Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.9.0/extras/named-register.min.js" integrity="sha512-KwGf9OECjBJAOXcozttnHAw8surkaN5SPaEhhRUzqLIR6s2v8B159tu1luBiMijBJjIkBqjYQLVT15YB2M81Cg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.9.0/extras/named-exports.min.js" integrity="sha512-mf4/y3IroNfkl20Brygdc+tb4a38MrEmU+VTSyMaqlsZhfVHCdHniA//HEgETGlJptSSCPv72Dy6kXB+OHiGAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script type="systemjs-importmap">
     {
       "imports": {
         "modal": "./js/outputs/Modal.js",
-        "game": "./js/outputs/Game.js",  
-        "app": "./js/outputs/App.js",
-        "events":"Window.EventEmitter"
+        "game": "./js/outputs/Game.js",
+        "app": "./js/outputs/App.js"
       }
 
     }
 </script>
 <script type="systemjs-module" src="import:modal"></script>
 <script type="systemjs-module" src="import:game"></script>
-<script async type="systemjs-module" src="import:app"></script>
+<script type="systemjs-module" src="import:app"></script>
 </html>

@@ -14,6 +14,14 @@ export class Game {
         this.modal = new Modal(this);
     }
 
+    /**
+     * This function create a new card in game.
+     * 
+     * @param {array} nums - array nums cards 
+     * @param {boolean} horizontal - is horizontal or vertical.
+     * @param {boolean} invertido - is inverted
+     * @returns array cards 
+     */
     private newCard(nums, horizontal= false, invertido= false) {
         const n1 = nums.num1;
         const n2 = nums.num2;
@@ -41,15 +49,43 @@ export class Game {
         return dcard;
     }
 
+    /**
+     * This fucntions test is 
+     * 
+     * @param {array} nums - this fucntio test if has 2 numbers equals. 
+     * @returns {boolean}
+     */
     private isDouble(nums) {
         if (nums.num1 == nums.num2) {  return true; } else { return false; }
     }
+
+    /**
+     * this funtion test if the numbes are invertided
+     * 
+     * @param {array} nums - array de number. 
+     * @returns {booelan}
+     */
     private isInverted(nums) {
         if (nums.num2 == this.Ultimo && (nums.num2 != nums.num1)) {  return true; } else { return false; }
     }
+
+    /**
+     * This function test if the number is allowed in momment
+     * 
+     * @param {array} nums -  array number
+     * @param {int} num - number will tested
+     * @returns {boolean}
+     */
     private isAllowed(nums, num) {
         if ((num == this.Ultimo) || ((nums.num1 == 6) && (nums.num2 == 6))) {return true ; } else { return false; }
     }
+
+
+    /**
+     * this function chamte the last number from game.
+     * 
+     * @param {array} nums 
+     */
     private changeUltimo(nums) {
         let ultimo = this.Ultimo;
         if (nums.num1 != ultimo && nums.num1 != this.Ultimo) {
@@ -60,26 +96,46 @@ export class Game {
         }
         this.Ultimo = ultimo
     }
+
+    /**
+     *  Open token will allow gamer make actions.
+     */
     private OpenToken() {
         document.getElementById('pass').classList.add('active');
         document.getElementById('wait').classList.add('disabled');
         document.getElementById('status').innerHTML = 'Minha Vez!';
     }
 
+    /**
+     * Close token this disallow gamer to make actions
+     */
     private CloseToken() {
         document.getElementById('pass').classList.remove('active');
         document.getElementById('wait').classList.remove('disabled');
         document.getElementById('status').innerHTML = 'Aguardando Vez...';
     }
+
+    /**
+     * This fucntion make the gamer pass the token.
+     */
     private PassarVez() {
         this.socket.emit('PASS');
         this.CloseToken();
     }
+
+    /**
+     * this functions will put scroll to bottom in game.
+     */
     private downTabScroll() {
         const objDiv = document.getElementById('tabuleiro');
         objDiv.scrollTop = objDiv.scrollHeight;
     }
 
+    /**
+     * This function will create hand.
+     * 
+     * @param {array} Hand - this is array with all cards from gamer  
+     */
     private createHand(Hand) {
         for (const nums of Hand) {
             const card = this.newCard(nums, false);
@@ -122,7 +178,10 @@ export class Game {
             document.getElementById('hand').appendChild(card);
         }
     }
-
+    
+    /**
+     * Reboot the game
+     */
     private Reiniciar() {
         document.getElementById('tabuleiro').innerHTML = '';
         const cards = document.querySelectorAll('#hand > div:not(#wait) ');
@@ -132,10 +191,17 @@ export class Game {
         document.getElementById('status').innerHTML = 'Aguardando jogadores...';
     }
 
+    /**
+     * This function send comand new connection to server.
+     * @param {string} name - Send user name. 
+     */
     public newConection(name: string) {
         this.socket.emit('NEW CONNECTION', name);
     }
-    /*** Listen connections  ***/
+
+    /**
+     * THis function  listem the server to make actions on client application
+     */
     private listen() {
         this.socket.on('connect', () =>  {
                 if (this.Debug) { console.info('conectado!!'); }
@@ -174,6 +240,9 @@ export class Game {
         });
     }
 
+    /**
+     * Send message to Incompatible screen resolution.
+     */
     private  sizeScreen() {
         if (window.screen.width >= 1024 && window.screen.height >= 768) {
              this.listen();

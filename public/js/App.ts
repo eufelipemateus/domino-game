@@ -4,4 +4,6 @@ declare global {
     interface Window { game: Game; io: any }
 }
 
-window.game =  new Game(window.io);
+ window.addEventListener('load', () => {
+    window.game =  new Game(window.io);
+});

@@ -4,7 +4,8 @@
 		"target": "es2019",
 		"module": "commonjs",
 		"sourceMap": false,
-		"outDir": "._build"
+		"outDir": "._build",
+        "removeComments": true,
 	},
 	"include": [
 		"src/**/*.ts"
