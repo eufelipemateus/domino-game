@@ -27,6 +27,8 @@ class App {
     }
     /**
      * Socket http
+     *
+     * @return {void}
      */
     private sockets(): void {
         this.server = createServer(this.app);

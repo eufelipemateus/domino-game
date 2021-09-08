@@ -9,3 +9,6 @@ node_modules/
 # build files
 ._build
 public/js/outputs
+
+#ENv
+.env

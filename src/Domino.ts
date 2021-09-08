@@ -15,6 +15,8 @@ class Domino {
 
     /**
      * Embaralhar cartas
+     *
+     * @return Card[]
      */
     public  emabaralhar():Card[] {
         const minhaMao: Card[] = [];
