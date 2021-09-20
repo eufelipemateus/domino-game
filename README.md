@@ -1,7 +1,7 @@
 # domino-game
 
 [![Known Vulnerabilities](https://snyk.io/test/npm/domino-game/badge.svg)](https://snyk.io/test/npm/domino-game)
- [![domino-game](https://snyk.io/advisor/npm-package/domino-game/badge.svg)](https://snyk.io/advisor/npm-package/domino-game)  [![npm version](https://badge.fury.io/js/domino-game.svg)](https://badge.fury.io/js/domino-game)
+ [![domino-game](https://snyk.io/advisor/npm-package/domino-game/badge.svg)](https://snyk.io/advisor/npm-package/domino-game)  [![npm version](https://badge.fury.io/js/domino-game.svg)](https://badge.fury.io/js/domino-game) [![Rate on Openbase](https://badges.openbase.com/js/rating/domino-game.svg)](https://openbase.com/js/domino-game?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
 domino-game é jogo de dominó online feito em html5, typescript, node.js e socket.io.
   
