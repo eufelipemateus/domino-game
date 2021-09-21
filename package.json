@@ -63,7 +63,7 @@
 		"express": "^4.16.4",
 		"express-session": "~1.17.2",
 		"socket.io": "^4.1.2",
-		"socket.io-client": "^4.1.2",
+		"socket.io-client": "^4.2.0",
 		"systemjs": "^6.10.3"
 	},
 	"devDependencies": {
