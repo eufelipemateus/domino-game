@@ -3,9 +3,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/npm/domino-game/badge.svg)](https://snyk.io/test/npm/domino-game)
  [![domino-game](https://snyk.io/advisor/npm-package/domino-game/badge.svg)](https://snyk.io/advisor/npm-package/domino-game)  [![npm version](https://badge.fury.io/js/domino-game.svg)](https://badge.fury.io/js/domino-game) [![Rate on Openbase](https://badges.openbase.com/js/rating/domino-game.svg)](https://openbase.com/js/domino-game?utm_source=embedded&utm_medium=badge&utm_campaign=rate-badge)
 
-domino-game é jogo de dominó online feito em html5, typescript, node.js e socket.io.
-  
-
+This is an online multiplayer game made with socket.io and html5 install and test this game.
 
 [![Screenshot Felipe Mateus Dominó Game](https://felipemateus.com/wp-content/uploads/2020/12/domino_2020-1.png "Screenshot Jogo Dominó")](https://eufelipemateus.com/blog/2017/06/domino  "Screenshot Jogo Dominó")
 
@@ -17,36 +15,8 @@ domino-game é jogo de dominó online feito em html5, typescript, node.js e sock
 
 ```bash
 
-git clone https://github.com/eufelipemateus/domino-game.git
-
+npm i domino-game -g 
 ```
-
-
-
-```bash
-
-cd domino-game
-
-```
-
-
-
-```bash
-
-npm install
-
-```
-
-## Building
-
-  
-
-```bash
-
-npm run build
-
-```
-
   
 
 ## Running
@@ -55,13 +25,11 @@ npm run build
 
 ```bash
 
-npm start
-
+domino-game
 ```
 
 
-
-[Veja mais sobre o Dominó](https://eufelipemateus.com/blog/2017/06/domino).
+[More about the Game](https://eufelipemateus.com/blog/2017/06/domino).
 
   
 
