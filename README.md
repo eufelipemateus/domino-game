@@ -7,34 +7,22 @@ This is an online multiplayer game made with socket.io and html5 install and tes
 
 [![Screenshot Felipe Mateus Dominó Game](https://felipemateus.com/wp-content/uploads/2020/12/domino_2020-1.png "Screenshot Jogo Dominó")](https://eufelipemateus.com/blog/2017/06/domino  "Screenshot Jogo Dominó")
 
-
-
 ## Instaling
-
-
 
 ```bash
 
 npm i domino-game -g 
 ```
   
-
 ## Running
-
-  
 
 ```bash
 
 domino-game
 ```
 
-
 [More about the Game](https://eufelipemateus.com/blog/2017/06/domino).
 
-  
-
 ## Author
-
-  
 
 **[Felipe Mateus](https://eufelipemateus.com)** - [eufelipemateus](https://github.com/eufelipemateus)
