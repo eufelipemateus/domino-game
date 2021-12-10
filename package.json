@@ -72,7 +72,7 @@
 		"express-session": "~1.17.2",
 		"socket.io": "^4.3.1",
 		"socket.io-client": "^4.3.2",
-		"systemjs": "^6.10.3"
+		"systemjs": "^6.11.0"
 	},
 	"devDependencies": {
 		"@types/dotenv": "8.2.0",
