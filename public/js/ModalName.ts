@@ -1,6 +1,6 @@
 import { Game } from './Game';
 
-export class Modal {
+export class ModalName {
     private modal: HTMLDivElement  = null;
     private closeButton: HTMLSpanElement  = null;
 

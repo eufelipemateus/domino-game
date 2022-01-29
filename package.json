@@ -95,7 +95,7 @@
 		"url": "https://github.com/eufelipemateus/domino-game/issues"
 	},
 	"homepage": "https://domino.felipemateus.com",
-    "bin":{
-        "domino-game": "bin/cli.js"
-    }
+	"bin": {
+		"domino-game": "bin/cli.js"
+	}
 }

@@ -1,4 +1,4 @@
-import {Modal} from './Modal.js';
+import {ModalName} from './ModalName';
 
 export class Game {
 
@@ -6,12 +6,12 @@ export class Game {
     private Jogador;
     private Debug;
     private socket;
-    private modal: Modal;
+    private modal: ModalName;
 
     constructor(io) {
         this.socket = io();
         this.sizeScreen();
-        this.modal = new Modal(this);
+        this.modal = new ModalName(this);
     }
 
     /**
