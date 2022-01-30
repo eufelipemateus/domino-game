@@ -1,19 +1,17 @@
-import { Game } from './Game';
+// import { Game } from './Game';
 
-export class ModalName {
+export class Alert {
     private modal: HTMLDivElement  = null;
     private closeButton: HTMLSpanElement  = null;
-
-    public inputName: HTMLInputElement  = null;
+    
+    private modalBody:HTMLDivElement = null;  
     public modalButton: HTMLButtonElement  = null;
 
-    public game: Game = null;
+    //public game: Game = null;
 
-    constructor(game: Game) {
-        // Get the modal
+    constructor() {
          this.__create();
          this.__Listen();
-         this.game = game;
     }
 
     private __create():void {
@@ -26,31 +24,21 @@ export class ModalName {
         // Header
         const modalHeader = document.createElement('div');
         modalHeader.classList.add('modal-header');
-        /*let modalclose = document.createElement('span');
+        const modalclose = document.createElement('span');
         modalclose.classList.add('close');
         modalclose.innerHTML = '&times;'
 
         this.closeButton = modalclose;
-        modalHeader.appendChild(modalclose);*/
+        modalHeader.appendChild(modalclose);
         const title = document.createElement('h2');
-        title.innerHTML = 'Put a Nickname'
+        title.innerHTML = 'INFO!!!'
         modalHeader.appendChild(title);
         modalContent.appendChild(modalHeader);
 
         // Body
-        const modalBody = document.createElement('div');
-        modalBody.classList.add('modal-body');
-
-        const label = document.createElement('label');
-        label.innerHTML = 'Name:'
-        modalBody.appendChild(label);
-
-        this.inputName = document.createElement('input');
-        this.inputName.setAttribute('placeholder', 'João Inacio');
-        modalBody.appendChild(this.inputName);
-
-        modalContent.appendChild(modalBody);
-
+        this.modalBody = document.createElement('div');
+        this.modalBody.classList.add('modal-body');      
+        modalContent.appendChild(this.modalBody);
 
         // Footer
         const modalFooter = document.createElement('div');
@@ -59,7 +47,7 @@ export class ModalName {
         this.modalButton = document.createElement('button');
         this.modalButton.classList.add('button-confirmar');
 
-        this.modalButton.innerHTML = 'Entrar'
+        this.modalButton.innerHTML = 'Reinciar'
         modalFooter.appendChild(this.modalButton);
 
         modalContent.appendChild(modalFooter);
@@ -69,43 +57,30 @@ export class ModalName {
         document.getElementsByTagName('body')[0].append(this.modal);
     }
     /**
-     *  Abrir modal requisição de nome de usuario
+     *  Open Alert
      */
-    public open():void {
+    public open(msg):void {
         this.modal.style.display= 'flex';
-        this.inputName.focus();
+        this.modalBody.innerHTML = msg;
     }
 
     /**
-     *  Fechar modal requisição de usuario
+     *   Close Alert
      */
-    public close():void {
+    private close():void {
         this.modal.style.display = 'none';
     }
-    /**
-     * Return name to class Game
-     * @param input
-     */
-    private __saveName(input: HTMLInputElement ):void {
-        if(input.value !==  '') {
-            this.game.newConection(input.value);
-        } else {
-            this.game.newConection('Usuário Qualquer! (No Name)');
-        }
-        this.close();
-    }
+   
     /**
      *  __Listen
      */
     private  __Listen():void {
         this.modalButton.addEventListener('click',()=> {
-            this.__saveName(this.inputName)
+            this.close()
         }, false);
 
-        this.inputName.addEventListener('keypress',(e)=> {
-            if (e.key === 'Enter') {
-                this.__saveName(this.inputName)
-            }
+        this.closeButton.addEventListener('click',()=> {
+            this.close();
         }, false);
     }
 
