@@ -1,17 +1,19 @@
-import {Modal} from './Modal.js';
-
+import {ModalName} from './ModalName.js';
+import {Alert} from './Alert.js';
 export class Game {
 
     private Ultimo= -1;
     private Jogador;
     private Debug;
     private socket;
-    private modal: Modal;
+    private modal: ModalName;
+    private alert: Alert;
 
     constructor(io) {
         this.socket = io();
         this.sizeScreen();
-        this.modal = new Modal(this);
+        this.modal = new ModalName(this);
+        this.alert = new Alert();
     }
 
     /**
@@ -182,7 +184,7 @@ export class Game {
     /**
      * Reboot the game
      */
-    private Reiniciar() {
+    public Reiniciar() {
         document.getElementById('tabuleiro').innerHTML = '';
         const cards = document.querySelectorAll('#hand > div:not(#wait) ');
         cards.forEach( (card) => {
@@ -230,7 +232,7 @@ export class Game {
             ( document.getElementById('Tokenjogador_' + token) as HTMLInputElement).checked = true;
         });
         this.socket.on('REBOOT', (msg) => {
-            alert(msg);
+            this.alert.open(msg)
             this.Reiniciar();
         });
         this.socket.on('INFO', (msg) => {
