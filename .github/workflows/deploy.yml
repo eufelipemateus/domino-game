@@ -7,23 +7,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
-      - name: "Build deployment code for standalone"
+      - uses: easingthemes/ssh-deploy@main
+      - name: "Deploy to Server"
         env:
-          remote_host: ${{ secrets.DEPLOY_HOST }}
-          remote_port: ${{ secrets.DEPLOY_PORT }}
-          remote_user: ${{ secrets.DEPLOY_USER }}
-          remote_key: ${{ secrets.DEPLOY_KEY }}
-          dev_env_file: ${{ secrets.DEV_ENV_FILE }}
-          local_dir: "./"
-          remote_dir: "/var/www/domino.felipefm32.com/"
-        run: |
-          npm install
-          CI=false npm run build
-          mkdir ~/.ssh
-          echo "$remote_key" > ~/.ssh/id_github
-          chmod 600 ~/.ssh/id_github
-          echo "$dev_env_file" > .env
-          chmod 600 .env
-          rsync -avzr --delete -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
-          rm ~/.ssh/id_github
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
+          REMOTE_USER: ${{ secrets.DEPLOY_USER }}
+          TARGET: '/var/www/domino.fm32.com.br'
+          EXCLUDE: "/dist/, /node_modules/"
