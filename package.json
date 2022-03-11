@@ -13,7 +13,9 @@
 		"pm2:start": "pm2 start",
 		"minify": "jsmin -o ._build/build.js ._build/* ",
 		"compile-front": "tsc -p public/tsconfig.json",
-		"postinstall": "cp .env.example .env &&  npm run build"
+		"postinstall": "cp .env.example .env &&  npm run build",
+		"deploy-production": "pm2 deploy ecosystem.config.js ",
+		"reload-production": "pm2 deploy ecosystem.config.js exec 'pm2 reload app'"
 	},
 	"repository": {
 		"type": "git",
@@ -70,8 +72,9 @@
 		"dotenv": "8.6.0",
 		"express": "^4.17.2",
 		"express-session": "~1.17.2",
+		"pm2": "^5.2.0",
 		"socket.io": "^4.4.1",
-		"socket.io-client": "^4.4.1",    
+		"socket.io-client": "^4.4.1",
 		"systemjs": "^6.10.3"
 	},
 	"devDependencies": {
