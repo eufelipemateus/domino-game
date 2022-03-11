@@ -10,7 +10,7 @@
 		"build": "eslint && tsc  &&   npm run compile-front",
 		"serve": "nodemon --watch \"src/**/*\" -e ts --exec \"ts-node -r tsconfig-paths/register\" ./src/Server.ts",
 		"start": "node ./._build/Server.js",
-		"pm2:start": "pm2 start ./._build/Server.js --name dominio-felipefm32",
+		"pm2:start": "pm2 start",
 		"minify": "jsmin -o ._build/build.js ._build/* ",
 		"compile-front": "tsc -p public/tsconfig.json",
 		"postinstall": "cp .env.example .env &&  npm run build"
@@ -68,7 +68,7 @@
 	"license": "CC-BY-NC-4.0",
 	"dependencies": {
 		"dotenv": "8.6.0",
-		"express": "^4.17.2",
+		"express": "^4.17.3",
 		"express-session": "~1.17.2",
 		"socket.io": "^4.4.1",
 		"socket.io-client": "^4.4.1",
