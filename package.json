@@ -70,7 +70,7 @@
 	"license": "CC-BY-NC-4.0",
 	"dependencies": {
 		"dotenv": "8.6.0",
-		"express": "^4.17.2",
+		"express": "^4.17.3",
 		"express-session": "~1.17.2",
 		"pm2": "^5.2.0",
 		"socket.io": "^4.4.1",
