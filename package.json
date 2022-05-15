@@ -70,11 +70,11 @@
 	"license": "CC-BY-NC-4.0",
 	"dependencies": {
 		"dotenv": "8.6.0",
-		"express": "^4.17.2",
+		"express": "^4.17.3",
 		"express-session": "~1.17.2",
 		"pm2": "^5.2.0",
-		"socket.io": "^4.4.1",
-		"socket.io-client": "^4.4.1",
+		"socket.io": "^4.5.0",
+		"socket.io-client": "^4.5.0",
 		"systemjs": "^6.10.3"
 	},
 	"devDependencies": {
