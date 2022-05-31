@@ -1,6 +1,6 @@
 {
-	"name": "@eufelipemateus/domino-game",
-	"version": "2.1.3",
+	"name": "domino-game",
+	"version": "2.1.2",
 	"description": "Domino is a game multiplayer made in node socket.io, typescript, node.js and html5.",
 	"main": "./._build/Server.js",
 	"engines": {
