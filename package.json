@@ -99,5 +99,8 @@
 	"homepage": "https://domino.felipemateus.com",
 	"bin": {
 		"domino-game": "bin/cli.js"
-	}
+	},
+    "publishConfig": {
+        "registry":"https://npm.pkg.github.com"
+    }
 }
