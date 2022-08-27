@@ -1,26 +1,17 @@
-const dotenv = require("dotenv");
-dotenv.config();
-
 module.exports = {
   apps : [{
     name   : "domino-game",
     script : "./._build/Server.js",
-    watch: true,
-  }],
-    deploy : {
-        production : {
-                "pem": "/home/felipemateus/Documentos/eu.pub",
-                "host": process.env.SERVER_IP,
-                "user": process.env.SERVER_USER,
-                "ref"  : "origin/master",
-                "repo" : "git@github.com:eufelipemateus/domino-game.git",
-                "path" : "/var/www/domino.felipefm32.com",
-                "post-deploy" : "npm install && pm2 reload ecosystem.config.js  && pm2 save"
-          }
-    }
-
-
-
-
+    log_date_format: 'YYYY-MM-DD HH:mm:ss SSS',
+		watch: true,
+		kill_timeout: 10000,
+		max_memory_restart: '512M',
+		instances: 1,
+		autorestart: true,
+		env: {
+				PORT: '8000',
+        NODE_ENV: 'production'
+		},
+  ]}
 }
 
