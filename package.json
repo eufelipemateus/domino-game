@@ -74,7 +74,7 @@
 		"express-session": "~1.17.3",
 		"pm2": "^5.2.0",
 		"socket.io": "^4.5.2",
-		"socket.io-client": "^4.5.1",
+		"socket.io-client": "^4.5.2",
 		"systemjs": "^6.12.2"
 	},
 	"devDependencies": {
