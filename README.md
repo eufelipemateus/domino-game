@@ -8,7 +8,7 @@
 
 This is an online multiplayer game made with socket.io and html5 install and test this game.
 
-[![Screenshot Dominó Game by Felipe Mateus](https://felipemateus.com/wp-content/uploads/2020/12/domino_2020-1.png "Screenshot Jogo Dominó")](https://eufelipemateus.com/blog/2017/06/domino  "Screenshot Jogo Dominó")
+[![Dominó Game by Felipe Mateus](https://felipemateus.com/wp-content/uploads/2020/12/domino_2020-1.png "Screenshot Jogo Dominó")](https://domino.felipemateus.com/  "Jogo Dominó")
 
 ## Instaling
 
@@ -24,7 +24,7 @@ npm i @eufelipemateus/domino-game -g
 domino-game
 ```
 
-[More about the Game](https://eufelipemateus.com/blog/2017/06/domino).
+[More about the Game](https://felipemateus.com/blog/2017/06/domino).
 
 ## Author
 
