@@ -73,7 +73,7 @@
 		"express": "^4.18.2",
 		"express-session": "~1.17.3",
 		"pm2": "^5.2.2",
-		"socket.io": "^4.5.2",
+		"socket.io": "^4.6.0",
 		"socket.io-client": "^4.5.2",
 		"systemjs": "^6.12.2"
 	},
