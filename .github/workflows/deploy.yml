@@ -1,0 +1,60 @@
+name: Build & Deploy Domino
+
+on:
+   push:
+    branches: [ master ]
+
+jobs:
+    build:
+        name: Build Web
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout source
+            uses: actions/checkout@v3
+            with:
+              set-safe-directory: false
+
+          - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+              node-version: 16.x
+
+          - name: Cache node modules
+            id: cache-nodemodules
+            uses: actions/cache@v2
+            env:
+                cache-name: cache-node-modules
+            with:
+                # caching node_modules
+              path: node_modules
+              key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+              restore-keys: |
+                  ${{ runner.os }}-build-${{ env.cache-name }}-
+                  ${{ runner.os }}-build-
+                  ${{ runner.os }}-
+
+          - name: Install app dependencies
+            run: yarn install --frozen-lockfile
+        
+          - name:  Release Artifact - Web
+            uses: actions/upload-artifact@v3
+            with:
+              name: web-app-release
+              path: |
+                ecosystem.config.js
+                ._build
+                public
+
+
+    deploy:
+      name: Deplopy Web
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Dowload Artifact
+          uses: actions/download-artifact@v2
+          with:
+            name: web-app-release
+
+        - name: Show Files
+          run: ls -l
