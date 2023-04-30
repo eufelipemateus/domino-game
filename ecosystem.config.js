@@ -8,6 +8,7 @@ module.exports = {
 		max_memory_restart: '512M',
 		instances: 1,
 		autorestart: true,
+    uid: 'www-data',
 		env: {
 				PORT: '8000',
         DEBUG: false,
