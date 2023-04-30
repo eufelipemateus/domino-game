@@ -75,3 +75,4 @@ jobs:
               cd ${{secrets.WORK_DIR}}
               pm2 start ecosystem.config.js
               pm2 restart all
+              pm2 save
