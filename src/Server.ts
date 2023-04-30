@@ -1,12 +1,11 @@
-import { env, loadEnv } from './env';
+import * as dotenv from 'dotenv';
 import app from './App';
 
-loadEnv()
+dotenv.config();
 
-const port =env.PORT;
-app.debug = !!+env.DEBUG;
+const port = parseInt(process.env.PORT, 10);
+app.debug = !!+process.env.DEBUG;
 
 app.server.listen(port, 'localhost', () => {
     console.info(`Server running in  http://localhost:${port}...`);
 });
-

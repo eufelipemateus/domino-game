@@ -11,7 +11,6 @@ module.exports = {
     uid: 'www-data',
 		env: {
 				PORT: '8000',
-        DEBUG: false,
         NODE_ENV: 'production'
 		},
   }]
