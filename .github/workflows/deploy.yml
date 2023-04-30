@@ -73,4 +73,5 @@ jobs:
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             script: |
               cd ${{secrets.WORK_DIR}}
+              pm2 start ecosystem.config.js
               pm2 restart all
