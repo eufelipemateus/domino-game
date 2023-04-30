@@ -66,5 +66,5 @@ jobs:
               ssh-keyscan -H ${{secrets.SSH_HOST}} > ~/.ssh/known_hosts
   
         - name: Deploy with rsync
-          run: rsync -rav --delete ./ ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:/build/
+          run: rsync -rav --delete ./ ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:~/build/
           #${{secrets.WORK_DIR}}
