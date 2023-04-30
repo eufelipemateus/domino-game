@@ -1,5 +1,5 @@
 # domino-game
-
+[![Build & Deploy Domino](https://github.com/eufelipemateus/domino-game/actions/workflows/deploy.yml/badge.svg?event=release)](https://github.com/eufelipemateus/domino-game/actions/workflows/deploy.yml)
 [![Node.js Package](https://github.com/eufelipemateus/domino-game/actions/workflows/npm-publish-github-packages.yml/badge.svg?branch=master)](https://github.com/eufelipemateus/domino-game/actions/workflows/npm-publish-github-packages.yml) 
 [![Known Vulnerabilities](https://snyk.io/test/npm/domino-game/badge.svg)](https://snyk.io/test/npm/domino-game)
 [![domino-game](https://snyk.io/advisor/npm-package/domino-game/badge.svg)](https://snyk.io/advisor/npm-package/domino-game)
