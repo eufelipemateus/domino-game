@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name   : "domino-game",
-    script : "./._build/Server.js",
+    script : "./dist/Server.js",
     log_date_format: 'YYYY-MM-DD HH:mm:ss SSS',
 		watch: true,
 		kill_timeout: 10000,
