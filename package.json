@@ -2,16 +2,16 @@
 	"name": "@eufelipemateus/domino-game",
 	"version": "2.1.3",
 	"description": "Domino is a game multiplayer made in node socket.io, typescript, node.js and html5.",
-	"main": "./._build/Server.js",
+	"main": "./dist/Server.js",
 	"engines": {
 		"node": ">=v12.13.0"
 	},
 	"scripts": {
 		"build": "eslint && tsc  &&   npm run compile-front",
 		"serve": "nodemon --watch \"src/**/*\" -e ts --exec \"ts-node -r tsconfig-paths/register\" ./src/Server.ts",
-		"start": "node ./._build/Server.js",
+		"start": "node ./dist/Server.js",
 		"pm2:start": "pm2 start",
-		"minify": "jsmin -o ._build/build.js ._build/* ",
+		"minify": "jsmin -o dist/build.js dist/* ",
 		"compile-front": "tsc -p public/tsconfig.json",
 		"postinstall": "cp .env.example .env &&  npm run build",
 		"deploy-production": "pm2 deploy ecosystem.config.js ",

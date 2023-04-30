@@ -7,7 +7,7 @@ node_modules/
 .npm
 
 # build files
-._build
+dist
 public/js/outputs
 
 #ENv
