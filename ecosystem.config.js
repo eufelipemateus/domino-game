@@ -10,6 +10,7 @@ module.exports = {
 		autorestart: true,
 		env: {
 				PORT: '8000',
+        DEBUG: false,
         NODE_ENV: 'production'
 		},
   }]
