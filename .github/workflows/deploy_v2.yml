@@ -1,0 +1,30 @@
+name: Build & Deploy Domino
+
+on:
+   push:
+    branches: [ developer ]
+
+jobs:
+    build:
+        name: Build Web
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout source
+            uses: actions/checkout@v3
+            with:
+              set-safe-directory: false
+
+          - name: Login Docker 
+            run:  docker login -u "eufelipemateus" -p "${{secrets.DOCKER_TOKEN}}"
+
+          - name: Build
+            run: docker build -t  ${{ github.repository_owner }}/${{ github.event.repository.name }}:test  -f ./docker/Dockerfile . # tag ${{ github.head_ref || github.ref_name }} 
+
+          - name: Write SSH keys
+            run: |
+              install -m 600 -D /dev/null ~/.ssh/id_rsa
+              echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+              ssh-keyscan -H ${{secrets.SSH_HOST}} > ~/.ssh/known_hosts
+  
+          - name: Deploy with rsync
+            run: rsync -rav --delete ./ ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:${{secrets.WORK_DIR}}

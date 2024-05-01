@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: domino-game-deployment
+  labels:
+    app: domino-game
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: domino-game
+  template:
+    metadata:
+      labels:
+        app: domino-game
+    spec:
+      containers:
+      - name: domino-game-deployment
+        image: pavansa/domino-game
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
