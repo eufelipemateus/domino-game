@@ -41,6 +41,6 @@ jobs:
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 script: |
                     cd ${{secrets.WORK_DIR}}
-                    docker login -u "adminuser" -p "${{secrets.DOCKER_TOKEN}}"  docker.felipemateus.com
-                    docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ github.event.repository.name }} --format="{{.ID}}")) -f
-                    docker run --restart=always --network=host -dp 127.0.0.1:8000:8000 --name  ${{ github.event.repository.name }} ${{ github.repository_owner }}/${{ github.event.repository.name }}:test
+                    sudo docker login -u "adminuser" -p "${{secrets.DOCKER_TOKEN}}"  docker.felipemateus.com
+                    sudo docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ github.event.repository.name }} --format="{{.ID}}")) -f
+                    sudo docker run --restart=always --network=host -dp 127.0.0.1:8000:8000 --name  ${{ github.event.repository.name }} ${{ github.repository_owner }}/${{ github.event.repository.name }}:test
