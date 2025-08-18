@@ -47,7 +47,7 @@ class App {
             }
 
             socket.on('NEW CONNECTION', (msg: string) => {
-                const cards = domino.emabaralhar();
+                const cards = domino.shuffle();
                 const gamer: Gamer = {
                     name: msg,
                     socket,
@@ -146,7 +146,7 @@ class App {
 
         domino.gamers.map((gamer, index) => {
             gamer.socket.emit('REBOOT', msg);
-            const cards = domino.emabaralhar();
+            const cards = domino.shuffle();
             gamer.cards = cards;
             gamer.token = domino.primeiraJogada(cards);
             gamer.socket.emit('HAND', cards);

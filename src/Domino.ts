@@ -14,11 +14,11 @@ class Domino {
     }
 
     /**
-     * Embaralhar cartas
+     * Shuffle the cards
      *
      * @return Card[]
      */
-    public  emabaralhar():Card[] {
+    public  shuffle():Card[] {
         const minhaMao: Card[] = [];
         let rand: Card;
         let index: number;
