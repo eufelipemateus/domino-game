@@ -35,11 +35,11 @@ class Domino {
     }
 
     /**
-     * Testar se é possivel fazer primeira jogadar
+     * Test if it is possible to make the first move.
      *
      * @param card
      */
-    public  primeiraJogada(card: Card[]):boolean {
+    public  firstPlay(card: Card[]):boolean {
         if (card.indexOf(this.cartas[27]) > -1) {
             return true;
         } else {

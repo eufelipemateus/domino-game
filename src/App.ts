@@ -52,7 +52,7 @@ class App {
                     name: msg,
                     socket,
                     cards,
-                    token: domino.primeiraJogada(cards),
+                    token: domino.firstPlay(cards),
                 }
 
                 socket.emit('HAND', cards);
@@ -148,7 +148,7 @@ class App {
             gamer.socket.emit('REBOOT', msg);
             const cards = domino.shuffle();
             gamer.cards = cards;
-            gamer.token = domino.primeiraJogada(cards);
+            gamer.token = domino.firstPlay(cards);
             gamer.socket.emit('HAND', cards);
             gamer.socket.emit('GAMER NAME', {gamer: index, name: gamer.name});
         });
